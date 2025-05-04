@@ -1,0 +1,20 @@
+.layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    flex: 1;
+    display: flex;
+    margin-top: 5rem; // Height of navbar
+  }
+
+  &__main {
+    flex: 1;
+    // padding: 2.5rem;
+    margin-left: 260px; // Width of sidebar
+    background-color: var(--background);
+    min-height: calc(100vh - 5rem); // Viewport height minus navbar height
+  }
+}

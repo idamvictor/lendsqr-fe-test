@@ -1,0 +1,24 @@
+// Base styles and variables
+@import "./_variables";
+
+// Import component styles
+@import "./components/navbar";
+@import "./components/sidebar";
+@import "./components/users";
+@import "./components/user-stats";
+@import "./components/user-table";
+@import "./components/pagination";
+@import "./components/login";
+@import "./components/layout";
+
+// Base styles
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: $font-family;
+}
+
+// Utilities
+.text-balance {
+  text-wrap: balance;
+}

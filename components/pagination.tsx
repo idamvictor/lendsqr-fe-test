@@ -19,22 +19,20 @@ export default function Pagination({
   );
 
   return (
-    <div className="flex items-center">
+    <div className="pagination">
       <button
-        className="w-6 h-6 flex items-center justify-center rounded-md border border-[#213F7D]/20 mr-2"
+        className="pagination__nav-button pagination__nav-button--prev"
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
       >
-        <ChevronLeft size={14} className="text-[#213F7D]" />
+        <ChevronLeft size={14} />
       </button>
 
       {pages.map((page) => (
         <button
           key={page}
-          className={`w-6 h-6 flex items-center justify-center rounded-md mx-1 text-xs ${
-            currentPage === page
-              ? "bg-[#213F7D] text-white"
-              : "text-[#545F7D] hover:bg-[#213F7D]/10"
+          className={`pagination__page-button ${
+            currentPage === page ? "pagination__page-button--active" : ""
           }`}
           onClick={() => onPageChange(page)}
         >
@@ -42,28 +40,28 @@ export default function Pagination({
         </button>
       ))}
 
-      <span className="mx-2 text-[#545F7D]">...</span>
+      <span className="pagination__ellipsis">...</span>
 
       <button
-        className="w-6 h-6 flex items-center justify-center rounded-md mx-1 text-xs text-[#545F7D] hover:bg-[#213F7D]/10"
+        className="pagination__page-button"
         onClick={() => onPageChange(15)}
       >
         15
       </button>
 
       <button
-        className="w-6 h-6 flex items-center justify-center rounded-md mx-1 text-xs text-[#545F7D] hover:bg-[#213F7D]/10"
+        className="pagination__page-button"
         onClick={() => onPageChange(16)}
       >
         16
       </button>
 
       <button
-        className="w-6 h-6 flex items-center justify-center rounded-md border border-[#213F7D]/20 ml-2"
+        className="pagination__nav-button pagination__nav-button--next"
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
       >
-        <ChevronRight size={14} className="text-[#213F7D]" />
+        <ChevronRight size={14} />
       </button>
     </div>
   );

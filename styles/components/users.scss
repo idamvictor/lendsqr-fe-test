@@ -1,0 +1,47 @@
+.users {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fbfbfb;
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  &__main {
+    flex: 1;
+    padding: 1.5rem;
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #213f7d;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-top: 1px solid #ededf1;
+
+    .items-per-page {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      color: #545f7d;
+
+      select {
+        margin: 0 0.5rem;
+        padding: 0.25rem 0.75rem;
+        border: 1px solid rgba(33, 63, 125, 0.2);
+        border-radius: 0.375rem;
+        background-color: transparent;
+      }
+    }
+  }
+}

@@ -30,76 +30,44 @@ export default function UserTable({ users }: UserTableProps) {
   ];
 
   const getStatusBadge = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "active":
-        return (
-          <span className="px-3 py-1 rounded-full bg-[#39CD62]/10 text-[#39CD62] text-xs font-medium">
-            Active
-          </span>
-        );
-      case "inactive":
-        return (
-          <span className="px-3 py-1 rounded-full bg-[#545F7D]/10 text-[#545F7D] text-xs font-medium">
-            Inactive
-          </span>
-        );
-      case "pending":
-        return (
-          <span className="px-3 py-1 rounded-full bg-[#E9B200]/10 text-[#E9B200] text-xs font-medium">
-            Pending
-          </span>
-        );
-      case "blacklisted":
-        return (
-          <span className="px-3 py-1 rounded-full bg-[#E4033B]/10 text-[#E4033B] text-xs font-medium">
-            Blacklisted
-          </span>
-        );
-      default:
-        return (
-          <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
-            {status}
-          </span>
-        );
-    }
+    const statusClass = `user-table__status-badge user-table__status-badge--${status.toLowerCase()}`;
+    return (
+      <span className={statusClass}>
+        {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+      </span>
+    );
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-x-auto">
-      <table className="w-full min-w-[1000px] border-collapse">
+    <div className="user-table">
+      <table>
         <thead>
-          <tr className="text-xs text-[#545F7D] font-semibold">
+          <tr>
             {columns.map((column) => (
-              <th key={column.key} className="px-6 py-4 text-left">
-                <div className="flex items-center">
+              <th key={column.key}>
+                <div className="header-content">
                   <span>{column.label}</span>
-                  <button
-                    className="ml-2"
-                    onClick={() => setShowFilterMenu(!showFilterMenu)}
-                  >
+                  <button onClick={() => setShowFilterMenu(!showFilterMenu)}>
                     <Filter size={14} />
                   </button>
                 </div>
               </th>
             ))}
-            <th className="px-6 py-4"></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
-            <tr
-              key={index}
-              className="border-t border-[#213F7D]/10 text-sm text-[#545F7D]"
-            >
-              <td className="px-6 py-4">{user.organization}</td>
-              <td className="px-6 py-4">{user.username}</td>
-              <td className="px-6 py-4">{user.email}</td>
-              <td className="px-6 py-4">{user.phoneNumber}</td>
-              <td className="px-6 py-4">{user.dateJoined}</td>
-              <td className="px-6 py-4">{getStatusBadge(user.status)}</td>
-              <td className="px-6 py-4 relative">
+            <tr key={index}>
+              <td>{user.organization}</td>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.phoneNumber}</td>
+              <td>{user.dateJoined}</td>
+              <td>{getStatusBadge(user.status)}</td>
+              <td className="user-table__actions">
                 <button
-                  className="text-[#545F7D]"
+                  className="user-table__actions-button"
                   onClick={() =>
                     setActiveMenu(activeMenu === index ? null : index)
                   }
@@ -107,16 +75,10 @@ export default function UserTable({ users }: UserTableProps) {
                   <MoreVertical size={16} />
                 </button>
                 {activeMenu === index && (
-                  <div className="absolute right-6 mt-2 w-40 bg-white rounded-md shadow-lg z-10 py-2">
-                    <button className="w-full text-left px-4 py-2 text-sm text-[#545F7D] hover:bg-gray-100">
-                      View Details
-                    </button>
-                    <button className="w-full text-left px-4 py-2 text-sm text-[#545F7D] hover:bg-gray-100">
-                      Blacklist User
-                    </button>
-                    <button className="w-full text-left px-4 py-2 text-sm text-[#545F7D] hover:bg-gray-100">
-                      Activate User
-                    </button>
+                  <div className="user-table__actions-menu">
+                    <button>View Details</button>
+                    <button>Blacklist User</button>
+                    <button>Activate User</button>
                   </div>
                 )}
               </td>

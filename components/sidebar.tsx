@@ -64,31 +64,13 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="w-[260px] bg-white border-r border-[#213F7D]/10 overflow-y-auto flex-shrink-0">
-      <div className="p-6 pb-10">
-        <div className="flex items-center mb-14">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M0 8.5C0 3.80558 3.80558 0 8.5 0H15.5C20.1944 0 24 3.80558 24 8.5V15.5C24 20.1944 20.1944 24 15.5 24H8.5C3.80558 24 0 20.1944 0 15.5V8.5Z"
-              fill="#213F7D"
-            />
-          </svg>
-          <span className="ml-2 text-[#213F7D] font-bold text-xl">lendsqr</span>
-        </div>
-
-        <div className="flex items-center mb-10 text-[#213F7D]">
+    <div className="sidebar">
+      <div className="sidebar__content">
+        <div className="sidebar__org-switch">
           <Briefcase size={16} />
-          <span className="ml-2 text-sm">Switch Organization</span>
+          <span className="sidebar__org-switch-text">Switch Organization</span>
           <svg
-            className="ml-2"
+            className="sidebar__org-switch-icon"
             width="12"
             height="8"
             viewBox="0 0 12 8"
@@ -102,30 +84,28 @@ export default function Sidebar() {
           </svg>
         </div>
 
-        <Link href="/" className="flex items-center mb-10 text-[#213F7D]">
+        <Link href="/" className="sidebar__dashboard-link">
           <Home size={16} />
-          <span className="ml-2 text-sm">Dashboard</span>
+          <span className="sidebar__dashboard-link-text">Dashboard</span>
         </Link>
 
         {menuItems.map((section) => (
-          <div key={section.section} className="mb-8">
-            <h3 className="text-xs text-[#545F7D] font-medium mb-4">
-              {section.section}
-            </h3>
+          <div key={section.section} className="sidebar__section">
+            <h3 className="sidebar__section-title">{section.section}</h3>
             <ul>
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
                     href="#"
-                    className={`flex items-center py-2.5 px-4 text-sm ${
+                    className={`sidebar__menu-item ${
                       activeItem === item.name
-                        ? "bg-[#213F7D]/10 border-l-4 border-[#39CDCC]"
-                        : "text-[#545F7D]"
+                        ? "sidebar__menu-item--active"
+                        : ""
                     }`}
                     onClick={() => setActiveItem(item.name)}
                   >
                     {item.icon}
-                    <span className="ml-2">{item.name}</span>
+                    <span className="sidebar__menu-item-text">{item.name}</span>
                   </Link>
                 </li>
               ))}

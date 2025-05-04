@@ -1,0 +1,34 @@
+// Variables
+$background: #ffffff;
+$foreground: #171717;
+$font-family: Arial, Helvetica, sans-serif;
+
+// Color System
+$colors: (
+  "primary": #213f7d,
+  // Primary blue for text and logos
+  "secondary": #545f7d,
+  // Secondary gray for text
+  "teal": #39cdcc,
+  // Teal for active states and buttons
+  "error": #e4033b,
+  // Red for error states
+  "success": #39cd62,
+  // Green for active status
+  "warning": #e9b200,
+  // Yellow for pending status
+  "coral": #f7685b,
+  // Coral for notification badges
+  "purple": #5718ff,
+  // Purple for icons
+  "pink": #ff33cc,
+  // Pink for accents
+  "background": #fbfbfb,
+  // Light gray for background
+  "white": #ffffff,
+  // White
+);
+
+// Alpha variations
+$primary-blue-10: rgba(33, 63, 125, 0.1);
+$primary-blue-06: rgba(33, 63, 125, 0.06);

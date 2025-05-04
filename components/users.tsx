@@ -87,13 +87,13 @@ export default function Users() {
   ];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard__content">
-        <main className="dashboard__main">
-          <h1 className="dashboard__title">Users</h1>
+    <div className="users">
+      <div className="users__content">
+        <main className="users__main">
+          <h1 className="users__title">Users</h1>
           <UserStats />
           <UserTable users={users} />
-          <div className="dashboard__pagination-controls">
+          <div className="users__pagination-controls">
             <div className="items-per-page">
               <span>Showing</span>
               <select

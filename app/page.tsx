@@ -1,12 +1,5 @@
-import React from 'react'
-import Dashboard from "@/components/dashboard";
+import { redirect } from "next/navigation";
 
-
-export default function page() {
-  return (
-    <>
-      {/* <div className="text-red-500">page</div> */}
-      <Dashboard />
-    </>
-  );
+export default function Page() {
+  redirect("/users");
 }

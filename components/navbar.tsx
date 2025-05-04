@@ -3,40 +3,46 @@ import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <header className="h-20 border-b border-[#213F7D]/10 bg-white flex items-center justify-between px-8">
-      <div className="relative w-[400px]">
-        <input
-          type="text"
-          placeholder="Search for anything"
-          className="w-full h-10 pl-4 pr-12 border border-[#213F7D]/20 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#39CDCC]"
-        />
-        <button className="absolute right-0 top-0 h-10 w-12 bg-[#39CDCC] rounded-r-lg flex items-center justify-center">
-          <Search size={16} color="white" />
-        </button>
+    <header className="navbar">
+      <div className="navbar__left">
+        <div className="navbar__logo">
+          <Image
+                      src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
+                      alt="Lendsqr Logo"
+                      width={130}
+                      height={30}
+                      priority
+                    />
+        </div>
+
+        <div className="navbar__search">
+          <input type="text" placeholder="Search for anything" />
+          <button>
+            <Search size={16} color="white" />
+          </button>
+        </div>
       </div>
 
-      <div className="flex items-center">
-        <a href="#" className="text-[#213F7D] underline mr-8 text-sm">
+      <div className="navbar__right">
+        <a href="#" className="docs-link">
           Docs
         </a>
-        <div className="relative mr-8">
-          <Bell size={20} className="text-[#213F7D]" />
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#F7685B] rounded-full flex items-center justify-center text-white text-[8px]">
-            8
-          </span>
+        <div className="notifications">
+          <Bell size={20} className="bell-icon" />
+          <span className="notification-badge">8</span>
         </div>
-        <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full overflow-hidden mr-2">
+        <div className="profile">
+          <div className="profile__image">
             <Image
               src="/placeholder.svg?height=40&width=40"
               alt="Profile"
               width={40}
               height={40}
-              className="object-cover"
+              className="rounded-full"
             />
           </div>
-          <div className="flex items-center">
-            <span className="text-[#213F7D] font-medium mr-1">Adedeji</span>
+          <div className="profile__info">
+            <span>Adedeji</span>
             <svg
               width="12"
               height="8"

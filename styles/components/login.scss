@@ -1,0 +1,143 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+
+  .left-side {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: flex;
+      width: 50%;
+      flex-direction: column;
+      padding: 2.5rem;
+    }
+
+    .logo-container {
+      margin-bottom: 5rem;
+    }
+
+    .illustration-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .right-side {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    justify-content: center;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      padding: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 5rem;
+    }
+
+    .mobile-logo {
+      margin-bottom: 2.5rem;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    .login-form-container {
+      max-width: 28rem;
+
+      h1 {
+        color: map-get($colors, "primary");
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+
+        @media (min-width: 768px) {
+          font-size: 2.25rem;
+        }
+      }
+
+      p {
+        color: map-get($colors, "secondary");
+        margin-bottom: 2.5rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .form-group {
+          margin-bottom: 0; // Remove margin since we're using gap
+
+          .input-wrapper {
+            position: relative;
+
+            input {
+              width: 100%;
+              padding: 0.75rem 1rem;
+              border: 1px solid rgba(map-get($colors, "secondary"), 0.15);
+              border-radius: 0.375rem;
+              color: map-get($colors, "secondary");
+
+              &:focus {
+                outline: none;
+                border-color: map-get($colors, "teal");
+                box-shadow: 0 0 0 1px map-get($colors, "teal");
+              }
+            }
+
+            .password-toggle {
+              position: absolute;
+              right: 0.75rem;
+              top: 50%;
+              transform: translateY(-50%);
+              color: map-get($colors, "teal");
+              text-transform: uppercase;
+              font-size: 0.75rem;
+              font-weight: 700;
+              background: none;
+              border: none;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .forgot-password {
+          color: map-get($colors, "teal");
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-decoration: none;
+          display: inline-block;
+          margin-bottom: 1.5rem;
+        }
+
+        .login-button {
+          width: 100%;
+          background-color: map-get($colors, "teal");
+          color: map-get($colors, "white");
+          padding: 0.75rem 1rem;
+          border-radius: 0.375rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.875rem;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: rgba(map-get($colors, "teal"), 0.9);
+          }
+        }
+      }
+    }
+  }
+}
