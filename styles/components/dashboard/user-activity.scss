@@ -1,0 +1,25 @@
+.activity-wrapper {
+  .chart-container {
+    background: white;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
+
+    h3 {
+      color: #213f7d;
+      margin-bottom: 20px;
+    }
+
+    .recharts-responsive-container {
+      flex: 1;
+      min-height: 0;
+    }
+  }
+}
