@@ -84,9 +84,15 @@ export default function Sidebar() {
           </svg>
         </div>
 
-        <Link href="/" className="sidebar__dashboard-link">
+        <Link
+          href="/dashboard"
+          className={`sidebar__menu-item ${
+            activeItem === "Dashboard" ? "sidebar__menu-item--active" : ""
+          }`}
+          onClick={() => setActiveItem("Dashboard")}
+        >
           <Home size={16} />
-          <span className="sidebar__dashboard-link-text">Dashboard</span>
+          <span className="sidebar__menu-item-text">Dashboard</span>
         </Link>
 
         {menuItems.map((section) => (
