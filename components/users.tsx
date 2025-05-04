@@ -13,6 +13,7 @@ export default function Users() {
 
   const users = [
     {
+      id: "1",
       organization: "Lendsqr",
       username: "Adedeji",
       email: "adedeji@lendsqr.com",
@@ -21,6 +22,7 @@ export default function Users() {
       status: "inactive",
     },
     {
+      id: "2",
       organization: "Irorun",
       username: "Debby Ogana",
       email: "debby2@irorun.com",
@@ -29,6 +31,7 @@ export default function Users() {
       status: "pending",
     },
     {
+      id: "3",
       organization: "Lendstar",
       username: "Grace Effiom",
       email: "grace@lendstar.com",
@@ -37,6 +40,7 @@ export default function Users() {
       status: "blacklisted",
     },
     {
+      id: "4",
       organization: "Lendsqr",
       username: "Tosin Dokunmu",
       email: "tosin@lendsqr.com",
@@ -45,6 +49,7 @@ export default function Users() {
       status: "pending",
     },
     {
+      id: "5",
       organization: "Lendstar",
       username: "Grace Effiom",
       email: "grace@lendstar.com",
@@ -53,6 +58,7 @@ export default function Users() {
       status: "active",
     },
     {
+      id: "6",
       organization: "Lendsqr",
       username: "Tosin Dokunmu",
       email: "tosin@lendsqr.com",
@@ -61,6 +67,7 @@ export default function Users() {
       status: "active",
     },
     {
+      id: "7",
       organization: "Lendstar",
       username: "Grace Effiom",
       email: "grace@lendstar.com",
@@ -69,6 +76,7 @@ export default function Users() {
       status: "blacklisted",
     },
     {
+      id: "8",
       organization: "Lendsqr",
       username: "Tosin Dokunmu",
       email: "tosin@lendsqr.com",
@@ -77,6 +85,7 @@ export default function Users() {
       status: "inactive",
     },
     {
+      id: "9",
       organization: "Lendstar",
       username: "Grace Effiom",
       email: "grace@lendstar.com",

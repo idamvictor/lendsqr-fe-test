@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Filter, MoreVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface User {
+  id: string;
   organization: string;
   username: string;
   email: string;
@@ -17,6 +19,7 @@ interface UserTableProps {
 }
 
 export default function UserTable({ users }: UserTableProps) {
+  const router = useRouter();
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
 
@@ -36,6 +39,11 @@ export default function UserTable({ users }: UserTableProps) {
         {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
       </span>
     );
+  };
+
+  const handleViewDetails = (userId: string) => {
+    router.push(`/users/${userId}`);
+    setActiveMenu(null);
   };
 
   return (
@@ -76,7 +84,9 @@ export default function UserTable({ users }: UserTableProps) {
                 </button>
                 {activeMenu === index && (
                   <div className="user-table__actions-menu">
-                    <button>View Details</button>
+                    <button onClick={() => handleViewDetails(user.id)}>
+                      View Details
+                    </button>
                     <button>Blacklist User</button>
                     <button>Activate User</button>
                   </div>
