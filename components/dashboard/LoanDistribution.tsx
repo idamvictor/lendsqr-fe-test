@@ -13,28 +13,30 @@ const LoanDistribution: React.FC = () => {
   return (
     <div className="chart-container">
       <h3>Loan Distribution</h3>
-      <div style={{ height: "300px", position: "relative" }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              paddingAngle={5}
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip content={<CustomPieTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
+      <div className="chart-content">
+        <div className="pie-chart-wrapper">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip content={<CustomPieTooltip />} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
         <div className="pie-chart-legend">
           {data.map((entry, index) => (
             <div key={index} className="legend-item">
