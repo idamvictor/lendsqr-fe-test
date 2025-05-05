@@ -30,7 +30,12 @@ const LoanPerformanceChart: React.FC = () => {
           <XAxis dataKey="name" />
           <YAxis tickFormatter={formatYAxis} />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="amount" fill="#39CDCC" radius={[4, 4, 0, 0]} />
+          <Bar
+            dataKey="amount"
+            fill="#39CDCC"
+            radius={[4, 4, 0, 0]}
+            barSize={30}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

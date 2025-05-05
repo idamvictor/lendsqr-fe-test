@@ -29,36 +29,92 @@ export default function Sidebar() {
     {
       section: "CUSTOMERS",
       items: [
-        { name: "Users", icon: <Users size={16} /> },
-        { name: "Guarantors", icon: <UserCheck size={16} /> },
-        { name: "Loans", icon: <FileText size={16} /> },
-        { name: "Decision Models", icon: <BarChart2 size={16} /> },
-        { name: "Savings", icon: <PiggyBank size={16} /> },
-        { name: "Loan Requests", icon: <ClipboardList size={16} /> },
-        { name: "Whitelist", icon: <UserCheck size={16} /> },
-        { name: "Karma", icon: <UserX size={16} /> },
+        { name: "Users", icon: <Users size={16} />, path: "/users" },
+        {
+          name: "Guarantors",
+          icon: <UserCheck size={16} />,
+          path: "/guarantors",
+        },
+        { name: "Loans", icon: <FileText size={16} />, path: "/loans" },
+        {
+          name: "Decision Models",
+          icon: <BarChart2 size={16} />,
+          path: "/decision-models",
+        },
+        { name: "Savings", icon: <PiggyBank size={16} />, path: "/savings" },
+        {
+          name: "Loan Requests",
+          icon: <ClipboardList size={16} />,
+          path: "/loan-requests",
+        },
+        {
+          name: "Whitelist",
+          icon: <UserCheck size={16} />,
+          path: "/whitelist",
+        },
+        { name: "Karma", icon: <UserX size={16} />, path: "/karma" },
       ],
     },
     {
       section: "BUSINESSES",
       items: [
-        { name: "Organization", icon: <Briefcase size={16} /> },
-        { name: "Loan Products", icon: <ClipboardList size={16} /> },
-        { name: "Savings Products", icon: <PiggyBank size={16} /> },
-        { name: "Fees and Charges", icon: <BadgePercent size={16} /> },
-        { name: "Transactions", icon: <Scroll size={16} /> },
-        { name: "Services", icon: <Sliders size={16} /> },
-        { name: "Service Account", icon: <UsersIcon size={16} /> },
-        { name: "Settlements", icon: <ClipboardIcon size={16} /> },
-        { name: "Reports", icon: <ChartBar size={16} /> },
+        {
+          name: "Organization",
+          icon: <Briefcase size={16} />,
+          path: "/organization",
+        },
+        {
+          name: "Loan Products",
+          icon: <ClipboardList size={16} />,
+          path: "/loan-products",
+        },
+        {
+          name: "Savings Products",
+          icon: <PiggyBank size={16} />,
+          path: "/savings-products",
+        },
+        {
+          name: "Fees and Charges",
+          icon: <BadgePercent size={16} />,
+          path: "/fees-charges",
+        },
+        {
+          name: "Transactions",
+          icon: <Scroll size={16} />,
+          path: "/transactions",
+        },
+        { name: "Services", icon: <Sliders size={16} />, path: "/services" },
+        {
+          name: "Service Account",
+          icon: <UsersIcon size={16} />,
+          path: "/service-account",
+        },
+        {
+          name: "Settlements",
+          icon: <ClipboardIcon size={16} />,
+          path: "/settlements",
+        },
+        { name: "Reports", icon: <ChartBar size={16} />, path: "/reports" },
       ],
     },
     {
       section: "SETTINGS",
       items: [
-        { name: "Preferences", icon: <SlidersIcon size={16} /> },
-        { name: "Fees and Pricing", icon: <BadgePercent size={16} /> },
-        { name: "Audit Logs", icon: <FileTextIcon size={16} /> },
+        {
+          name: "Preferences",
+          icon: <SlidersIcon size={16} />,
+          path: "/preferences",
+        },
+        {
+          name: "Fees and Pricing",
+          icon: <BadgePercent size={16} />,
+          path: "/fees-pricing",
+        },
+        {
+          name: "Audit Logs",
+          icon: <FileTextIcon size={16} />,
+          path: "/audit-logs",
+        },
       ],
     },
   ];
@@ -102,7 +158,7 @@ export default function Sidebar() {
               {section.items.map((item) => (
                 <li key={item.name}>
                   <Link
-                    href="#"
+                    href={item.path}
                     className={`sidebar__menu-item ${
                       activeItem === item.name
                         ? "sidebar__menu-item--active"
