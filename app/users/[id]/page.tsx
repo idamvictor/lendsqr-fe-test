@@ -2,11 +2,10 @@ import UserDetails from "@/components/user-details";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default function UserDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type Params = Promise<{ id: string }>;
+
+export default async function UserDetailsPage({ params }: { params: Params }) {
+  const resolvedParams = await params;
   return (
     <div className="user-details-page">
       <Link href="/users" className="back-link">
@@ -22,7 +21,7 @@ export default function UserDetailsPage({
         </div>
       </div>
 
-      <UserDetails userId={params.id} />
+      <UserDetails userId={resolvedParams.id} />
     </div>
   );
 }
