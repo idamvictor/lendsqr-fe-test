@@ -10,7 +10,8 @@
   bottom: 0;
 
   &__content {
-    padding: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 1.5rem;
     padding-bottom: 2.5rem;
   }
 
@@ -30,7 +31,8 @@
   &__org-switch {
     display: flex;
     align-items: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.9rem;
     color: #213f7d;
 
     &-text {
@@ -62,7 +64,10 @@
       font-size: 0.75rem;
       color: #545f7d;
       font-weight: 500;
-      margin-bottom: 1rem;
+      margin-bottom: .5rem;
+      margin-left: 1.9rem;
+      margin-top: 1rem;
+
     }
 
     ul {
