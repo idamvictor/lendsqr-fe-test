@@ -9,12 +9,14 @@ import type { z } from "zod";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import styles from "@/styles/components/Login.module.scss";
+import { useState } from "react";
 
 type LoginInputs = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,11 +27,24 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginInputs) => {
     try {
+      // We'll rely on isSubmitting for the loading state
       await login(data.email, data.password);
-      toast.success("Successfully logged in!");
+      toast.success("Successfully logged in!", {
+        duration: 3000,
+        style: {
+          background: "#39CDCC",
+          color: "#fff",
+        },
+      });
       router.push("/dashboard");
-    } catch {
-      toast.error("Invalid email or password");
+    } catch (error) {
+      toast.error("Invalid email or password", {
+        duration: 4000,
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
     }
   };
 
@@ -65,7 +80,7 @@ export default function LoginPage() {
           />
         </div>
         <h1>Welcome!</h1>
-        <p>Enter details to login.</p>
+        <p className={styles["login-description"]}>Enter details to login.</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.formGroup}>
@@ -81,12 +96,21 @@ export default function LoginPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-              aria-invalid={!!errors.password}
-            />
+            <div className={styles.passwordInput}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password")}
+                aria-invalid={!!errors.password}
+              />
+              <button
+                type="button"
+                className={styles.showPassword}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "HIDE" : "SHOW"}
+              </button>
+            </div>
             {errors.password && (
               <p className={styles.errorMessage}>{errors.password.message}</p>
             )}
@@ -98,10 +122,20 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className={styles.loginButton}
+            className={`${styles.loginButton} ${
+              isSubmitting ? styles.loading : ""
+            }`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Loading..." : "LOG IN"}
+            {isSubmitting ? (
+              <span className={styles.loadingSpinner}>
+                <span className={styles.spinnerDot}></span>
+                <span className={styles.spinnerDot}></span>
+                <span className={styles.spinnerDot}></span>
+              </span>
+            ) : (
+              "LOG IN"
+            )}
           </button>
         </form>
       </div>
