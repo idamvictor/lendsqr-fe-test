@@ -1,29 +1,56 @@
-import { Bell, Search } from "lucide-react";
+import { Bell, Menu, Search, X } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({
+  toggleSidebar,
+}: {
+  toggleSidebar: () => void;
+}) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <header className="navbar">
       <div className="navbar__left">
+        <button className="navbar__menu-button" onClick={toggleSidebar}>
+          <Menu size={24} />
+        </button>
+
         <div className="navbar__logo">
           <Image
-                      src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
-                      alt="Lendsqr Logo"
-                      width={130}
-                      height={30}
-                      priority
-                    />
+            src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
+            alt="Lendsqr Logo"
+            width={130}
+            height={30}
+            priority
+          />
         </div>
 
-        <div className="navbar__search">
+        <div
+          className={`navbar__search ${
+            isSearchOpen ? "navbar__search--open" : ""
+          }`}
+        >
           <input type="text" placeholder="Search for anything" />
-          <button>
+          <button className="navbar__search-button">
             <Search size={16} color="white" />
+          </button>
+          <button
+            className="navbar__search-close"
+            onClick={() => setIsSearchOpen(false)}
+          >
+            <X size={24} />
           </button>
         </div>
       </div>
 
       <div className="navbar__right">
+        <button
+          className="navbar__search-toggle"
+          onClick={() => setIsSearchOpen(true)}
+        >
+          <Search size={20} />
+        </button>
         <a href="#" className="docs-link">
           Docs
         </a>
@@ -34,7 +61,7 @@ export default function Navbar() {
         <div className="profile">
           <div className="profile__image">
             <Image
-              src="/placeholder.svg?height=40&width=40"
+              src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1744069087/idam_3d_small_lb6fzg.png"
               alt="Profile"
               width={40}
               height={40}

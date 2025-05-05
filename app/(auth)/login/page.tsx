@@ -38,6 +38,7 @@ export default function LoginPage() {
       });
       router.push("/dashboard");
     } catch (error) {
+      console.error("Login error:", error);
       toast.error("Invalid email or password", {
         duration: 4000,
         style: {

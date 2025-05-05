@@ -24,20 +24,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is logged in on mount
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // In a real app, validate token and fetch user data
-      setUser({
-        email: "admin@lendsqr.com",
-        name: "Admin User",
-      });
+    try {
+      // Check if user is logged in on mount
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        // In a real app, validate token and fetch user data
+        setUser({
+          email: "admin@lendsqr.com",
+          name: "Admin User",
+        });
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
+      // Handle localStorage not being available during SSR
+      console.log("localStorage not available");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
     try {
+      // Simulate API call with 1 second delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // Mock login - replace with actual API call in production
       if (email === "admin@lendsqr.com" && password === "password123") {
         const token = "mock-token";

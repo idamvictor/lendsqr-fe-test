@@ -22,8 +22,23 @@ import {
   FileTextIcon,
 } from "lucide-react";
 
-export default function Sidebar() {
+interface SidebarProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (isOpen: boolean) => void;
+}
+
+export default function Sidebar({
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+}: SidebarProps) {
   const [activeItem, setActiveItem] = useState("Users");
+
+  const handleItemClick = (name: string) => {
+    setActiveItem(name);
+    if (window.innerWidth < 768) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   const menuItems = [
     {
@@ -120,7 +135,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isMobileMenuOpen ? "sidebar--open" : ""}`}>
       <div className="sidebar__content">
         <div className="sidebar__org-switch">
           <Briefcase size={16} />
@@ -145,7 +160,7 @@ export default function Sidebar() {
           className={`sidebar__menu-item ${
             activeItem === "Dashboard" ? "sidebar__menu-item--active" : ""
           }`}
-          onClick={() => setActiveItem("Dashboard")}
+          onClick={() => handleItemClick("Dashboard")}
         >
           <Home size={16} />
           <span className="sidebar__menu-item-text">Dashboard</span>
@@ -164,7 +179,7 @@ export default function Sidebar() {
                         ? "sidebar__menu-item--active"
                         : ""
                     }`}
-                    onClick={() => setActiveItem(item.name)}
+                    onClick={() => handleItemClick(item.name)}
                   >
                     {item.icon}
                     <span className="sidebar__menu-item-text">{item.name}</span>

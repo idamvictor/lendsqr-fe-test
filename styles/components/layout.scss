@@ -3,6 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #fbfbfb;
 
   &__container {
     flex: 1;
@@ -10,11 +11,45 @@
     margin-top: 5rem; // Height of navbar
   }
 
+  &__content {
+    padding-top: 5rem;
+    display: flex;
+    position: relative;
+  }
+
   &__main {
     flex: 1;
-    // padding: 2.5rem;
-    margin-left: 260px; // Width of sidebar
+    min-width: 0;
+    padding: 2rem;
+    margin-left: 260px;
     background-color: var(--background);
     min-height: calc(100vh - 5rem); // Viewport height minus navbar height
+    transition: margin-left 0.3s ease-in-out;
+
+    @media (max-width: 1024px) {
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar-overlay {
+      position: fixed;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      display: none;
+
+      &--visible {
+        display: block;
+      }
+    }
   }
 }
