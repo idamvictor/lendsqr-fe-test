@@ -38,21 +38,32 @@ export default function LoginPage() {
       {/* Left side with logo and illustration */}
       <div className={styles.loginIllustration}>
         <Image
-          src="/lendsqr-logo.svg"
+          src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
           alt="Lendsqr Logo"
           width={170}
           height={36}
+          priority
         />
         <Image
-          src="/login-illustration.svg"
+          src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/pablo-sign-in_1_qvq2ua.svg"
           alt="Login Illustration"
           width={600}
           height={400}
+          priority
         />
       </div>
 
       {/* Right side with login form */}
       <div className={styles.loginForm}>
+        <div className={styles.mobileLogo}>
+          <Image
+            src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
+            alt="Lendsqr Logo"
+            width={170}
+            height={36}
+            priority
+          />
+        </div>
         <h1>Welcome!</h1>
         <p>Enter details to login.</p>
 

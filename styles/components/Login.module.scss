@@ -40,6 +40,14 @@
       padding: 5rem;
     }
 
+    .mobileLogo {
+      margin-bottom: 2.5rem;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
     h1 {
       font-size: 1.875rem;
       font-weight: 700;

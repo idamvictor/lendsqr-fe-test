@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // In a real app, validate token and fetch user data
       setUser({
         email: "admin@lendsqr.com",
-        name: "Admin User"
+        name: "Admin User",
       });
     }
     setIsLoading(false);
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("authToken", token);
         setUser({
           email,
-          name: "Admin User"
+          name: "Admin User",
         });
         router.push("/dashboard");
       } else {
@@ -62,13 +62,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        login, 
-        logout, 
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
         isLoading,
-        isAuthenticated: !!user 
+        isAuthenticated: !!user,
       }}
     >
       {children}
