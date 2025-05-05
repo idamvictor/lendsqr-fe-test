@@ -1,5 +1,8 @@
+'use client';
+
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function DashboardLayout({
   children,
@@ -11,7 +14,9 @@ export default function DashboardLayout({
       <Navbar />
       <div className="layout__container">
         <Sidebar />
-        <main className="layout__main">{children}</main>
+        <main className="layout__main">
+          <AuthGuard>{children}</AuthGuard>
+        </main>
       </div>
     </div>
   );
