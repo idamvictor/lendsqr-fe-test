@@ -1,0 +1,125 @@
+.loginContainer {
+  display: flex;
+  min-height: 100vh;
+
+  .loginIllustration {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 2.5rem;
+
+      img {
+        &:first-child {
+          margin-bottom: 5rem;
+        }
+
+        &:last-child {
+          flex: 1;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 1.5rem;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      padding: 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 5rem;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #213f7d;
+      margin-bottom: 0.5rem;
+
+      @media (min-width: 768px) {
+        font-size: 2.25rem;
+      }
+    }
+
+    p {
+      color: #545f7d;
+      margin-bottom: 2.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .formGroup {
+        margin-bottom: 0;
+
+        input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 1px solid rgba(84, 95, 125, 0.15);
+          border-radius: 0.375rem;
+          color: #545f7d;
+
+          &:focus {
+            outline: none;
+            border-color: #39cdcc;
+            box-shadow: 0 0 0 1px #39cdcc;
+          }
+
+          &[aria-invalid="true"] {
+            border-color: #ff0000;
+          }
+        }
+
+        .errorMessage {
+          color: #ff0000;
+          font-size: 0.75rem;
+          margin-top: 0.25rem;
+        }
+      }
+
+      .forgotPassword {
+        color: #39cdcc;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+      }
+
+      .loginButton {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: #39cdcc;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: rgba(57, 205, 204, 0.9);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
