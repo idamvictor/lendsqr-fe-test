@@ -8,6 +8,7 @@ interface UserDetailsProps {
 
 export default function UserDetails({ userId }: UserDetailsProps) {
   const [activeTab, setActiveTab] = useState("General Details");
+  console.log('userid :', userId);
 
   const tabs = [
     "General Details",
