@@ -1,141 +1,114 @@
-export default function UserStats() {
-  const stats = [
-    {
-      title: "USERS",
-      count: "2,453",
-      iconClass: "purple",
-      icon: (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5C12.1421 0.5 15.5 3.85786 15.5 8Z"
-            stroke="#DF18FF"
-          />
-          <path
-            d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-            fill="#DF18FF"
-          />
-          <path
-            d="M12 13.5C10.8 12.3 9.5 11.5 8 11.5C6.5 11.5 5.2 12.3 4 13.5"
-            stroke="#DF18FF"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "ACTIVE USERS",
-      count: "2,453",
-      iconClass: "blue",
-      icon: (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16Z"
-            fill="#5718FF"
-            fillOpacity="0.1"
-          />
-          <path
-            d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-            fill="#5718FF"
-          />
-          <path
-            d="M12 13.5C10.8 12.3 9.5 11.5 8 11.5C6.5 11.5 5.2 12.3 4 13.5"
-            stroke="#5718FF"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "USERS WITH LOANS",
-      count: "12,453",
-      iconClass: "orange",
-      icon: (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z"
-            fill="#F55F44"
-            fillOpacity="0.1"
-          />
-          <path
-            d="M8 4L8 12"
-            stroke="#F55F44"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M10.5 7L5.5 7"
-            stroke="#F55F44"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "USERS WITH SAVINGS",
-      count: "102,453",
-      iconClass: "red",
-      icon: (
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z"
-            fill="#FF3366"
-            fillOpacity="0.1"
-          />
-          <path
-            d="M4 10L12 10"
-            stroke="#FF3366"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M8 6L8 14"
-            stroke="#FF3366"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-  ];
+interface StatsProps {
+  stats: {
+    totalUsers: number;
+    activeUsers: number;
+    usersWithLoans: number;
+    usersWithSavings: number;
+  };
+}
 
+export default function UserStats({ stats }: StatsProps) {
   return (
     <div className="user-stats">
-      {stats.map((stat, index) => (
-        <div key={index} className="user-stats__card">
-          <div className="user-stats__card-icon">
-            <div className={`icon-wrapper icon-wrapper--${stat.iconClass}`}>
-              {stat.icon}
-            </div>
+      <div className="user-stats__card">
+        <div className="user-stats__card-icon">
+          <div className="icon-wrapper icon-wrapper--purple">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0423 11.3848C13.4118 10.5813 12.6209 9.91279 11.7258 9.42535C12.925 8.45786 13.6892 6.98356 13.6892 5.35156C13.6892 2.40139 11.2878 0 8.33764 0C5.38747 0 2.98608 2.40139 2.98608 5.35156C2.98608 6.98356 3.75027 8.45786 4.94949 9.42535C4.05441 9.91279 3.26352 10.5813 2.63302 11.3848C1.76976 12.4673 1.16178 13.7235 0.849876 15.0611C0.833613 15.1439 0.834455 15.2293 0.852325 15.3118C0.870195 15.3943 0.904714 15.4722 0.95392 15.5409C1.05419 15.6797 1.20604 15.7702 1.37602 15.7901C1.54601 15.81 1.7161 15.7573 1.84221 15.644C1.96833 15.5307 2.03712 15.3676 2.03325 15.1977C2.37002 13.6997 3.08551 12.3104 4.11092 11.1578C5.13633 10.0052 6.43369 9.12735 7.87035 8.61936C8.02273 8.57288 8.15826 8.47551 8.25777 8.34219C8.35727 8.20887 8.41543 8.04647 8.42333 7.87736C8.43123 7.70824 8.38851 7.54093 8.30089 7.39865C8.21327 7.25637 8.08515 7.14563 7.93555 7.08376C6.11547 6.3662 4.8673 4.40688 4.8673 5.35156C4.8673 3.43356 6.41964 1.88122 8.33764 1.88122C10.2556 1.88122 11.808 3.43356 11.808 5.35156C11.808 7.26956 10.2556 8.8219 8.33764 8.8219C8.16695 8.8219 8.00318 8.88976 7.88288 9.01006C7.76259 9.13035 7.69473 9.29412 7.69473 9.46481C7.69473 9.6355 7.76259 9.79927 7.88288 9.91957C8.00318 10.0399 8.16695 10.1077 8.33764 10.1077C9.77478 10.1082 11.1729 10.4892 12.4007 11.2141C13.6285 11.939 14.6449 12.984 15.3547 14.2272C15.4104 14.325 15.4872 14.4091 15.5795 14.4733C15.6719 14.5375 15.7773 14.5803 15.8881 14.5984C15.9494 14.6092 16.0119 14.6092 16.0733 14.5984C16.2402 14.5716 16.3901 14.4775 16.4907 14.3361C16.5913 14.1948 16.6349 14.0176 16.6132 13.8426C16.2907 12.4996 15.6711 11.2403 14.7946 10.167L14.0423 11.3848Z"
+                fill="#DF18FF"
+              />
+            </svg>
           </div>
-          <h3 className="user-stats__card-title">{stat.title}</h3>
-          <p className="user-stats__card-count">{stat.count}</p>
         </div>
-      ))}
+        <h3 className="user-stats__card-title">Users</h3>
+        <p className="user-stats__card-count">
+          {stats.totalUsers.toLocaleString()}
+        </p>
+      </div>
+
+      <div className="user-stats__card">
+        <div className="user-stats__card-icon">
+          <div className="icon-wrapper icon-wrapper--blue">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM8 14.4C4.472 14.4 1.6 11.528 1.6 8C1.6 4.472 4.472 1.6 8 1.6C11.528 1.6 14.4 4.472 14.4 8C14.4 11.528 11.528 14.4 8 14.4Z"
+                fill="#5718FF"
+              />
+            </svg>
+          </div>
+        </div>
+        <h3 className="user-stats__card-title">Active Users</h3>
+        <p className="user-stats__card-count">
+          {stats.activeUsers.toLocaleString()}
+        </p>
+      </div>
+
+      <div className="user-stats__card">
+        <div className="user-stats__card-icon">
+          <div className="icon-wrapper icon-wrapper--orange">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 12.6656V14.6656C0 15.399 0.6 15.9656 1.333 15.9656H14.667C15.4 15.9656 16 15.399 16 14.6656V12.6656C16 11.9323 15.4 11.3656 14.667 11.3656H1.333C0.6 11.3656 0 11.9323 0 12.6656ZM1.333 14.6656V12.6656H6.667V13.999H8V12.6656H14.667V14.6656H1.333Z"
+                fill="#F55F44"
+              />
+              <path
+                d="M12.6667 2.66558H11.3334V1.33224C11.3334 0.598909 10.7334 0.0322266 10 0.0322266H6.00002C5.26669 0.0322266 4.66669 0.598909 4.66669 1.33224V2.66558H3.33335C2.60002 2.66558 2.00002 3.23226 2.00002 3.96558V7.99891C2.00002 8.73224 2.60002 9.29891 3.33335 9.29891H12.6667C13.4 9.29891 14 8.73224 14 7.99891V3.96558C14 3.23226 13.4 2.66558 12.6667 2.66558ZM6.00002 1.33224H10V2.66558H6.00002V1.33224ZM12.6667 7.99891H3.33335V3.96558H12.6667V7.99891Z"
+                fill="#F55F44"
+              />
+            </svg>
+          </div>
+        </div>
+        <h3 className="user-stats__card-title">Users with Loans</h3>
+        <p className="user-stats__card-count">
+          {stats.usersWithLoans.toLocaleString()}
+        </p>
+      </div>
+
+      <div className="user-stats__card">
+        <div className="user-stats__card-icon">
+          <div className="icon-wrapper icon-wrapper--red">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 2.66675H12.6667V1.33341C12.6667 0.600081 12.0667 0.000081995 11.3333 0.000081995H4.66667C3.93333 0.000081995 3.33333 0.600081 3.33333 1.33341V2.66675H2C1.26667 2.66675 0.666667 3.26675 0.666667 4.00008V14.6667C0.666667 15.4001 1.26667 16.0001 2 16.0001H14C14.7333 16.0001 15.3333 15.4001 15.3333 14.6667V4.00008C15.3333 3.26675 14.7333 2.66675 14 2.66675ZM4.66667 1.33341H11.3333V2.66675H4.66667V1.33341ZM14 14.6667H2V4.00008H14V14.6667Z"
+                fill="#FF3366"
+              />
+              <path
+                d="M8 5.33342C6.53333 5.33342 5.33333 6.53342 5.33333 8.00008C5.33333 9.46675 6.53333 10.6667 8 10.6667C9.46667 10.6667 10.6667 9.46675 10.6667 8.00008C10.6667 6.53342 9.46667 5.33342 8 5.33342ZM8 9.33342C7.26667 9.33342 6.66667 8.73342 6.66667 8.00008C6.66667 7.26675 7.26667 6.66675 8 6.66675C8.73333 6.66675 9.33333 7.26675 9.33333 8.00008C9.33333 8.73342 8.73333 9.33342 8 9.33342Z"
+                fill="#FF3366"
+              />
+            </svg>
+          </div>
+        </div>
+        <h3 className="user-stats__card-title">Users with Savings</h3>
+        <p className="user-stats__card-count">
+          {stats.usersWithSavings.toLocaleString()}
+        </p>
+      </div>
     </div>
   );
 }

@@ -16,11 +16,11 @@ interface FilterData {
 
 interface User {
   id: string;
-  organization: string;
-  username: string;
+  orgName: string;
+  userName: string;
   email: string;
   phoneNumber: string;
-  dateJoined: string;
+  createdAt: string;
   status: string;
 }
 
@@ -44,11 +44,11 @@ export default function UserTable({ users }: UserTableProps) {
   );
 
   const columns = [
-    { key: "organization", label: "ORGANIZATION" },
-    { key: "username", label: "USERNAME" },
+    { key: "orgName", label: "ORGANIZATION" },
+    { key: "userName", label: "USERNAME" },
     { key: "email", label: "EMAIL" },
     { key: "phoneNumber", label: "PHONE NUMBER" },
-    { key: "dateJoined", label: "DATE JOINED" },
+    { key: "createdAt", label: "DATE JOINED" },
     { key: "status", label: "STATUS" },
   ];
 
@@ -74,7 +74,7 @@ export default function UserTable({ users }: UserTableProps) {
     const rect = button.getBoundingClientRect();
     const isRightAligned =
       columnKey === "phoneNumber" ||
-      columnKey === "dateJoined" ||
+      columnKey === "createdAt" ||
       columnKey === "status";
 
     const position: FilterPosition = {
@@ -103,6 +103,14 @@ export default function UserTable({ users }: UserTableProps) {
     // TODO: Implement actual filtering logic
   };
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <div className="user-table">
       <table>
@@ -127,11 +135,11 @@ export default function UserTable({ users }: UserTableProps) {
         <tbody>
           {users.map((user, index) => (
             <tr key={index}>
-              <td>{user.organization}</td>
-              <td>{user.username}</td>
+              <td>{user.orgName}</td>
+              <td>{user.userName}</td>
               <td>{user.email}</td>
               <td>{user.phoneNumber}</td>
-              <td>{user.dateJoined}</td>
+              <td>{formatDate(user.createdAt)}</td>
               <td>{getStatusBadge(user.status)}</td>
               <td className="user-table__actions">
                 <button
