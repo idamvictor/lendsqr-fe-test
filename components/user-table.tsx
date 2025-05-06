@@ -1,8 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Filter, MoreVertical } from "lucide-react";
+import { MoreVertical, Eye, UserX, UserCheck, ListFilter } from "lucide-react";
 import { useRouter } from "next/navigation";
+import FilterMenu from "./filter-menu";
+
+interface FilterData {
+  organization: string;
+  username: string;
+  email: string;
+  date: string;
+  phoneNumber: string;
+  status: string;
+}
 
 interface User {
   id: string;
@@ -18,10 +28,20 @@ interface UserTableProps {
   users: User[];
 }
 
+interface FilterPosition {
+  top: number;
+  left?: number;
+  right?: number;
+}
+
 export default function UserTable({ users }: UserTableProps) {
   const router = useRouter();
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [activeColumn, setActiveColumn] = useState<string | null>(null);
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [filterPosition, setFilterPosition] = useState<FilterPosition | null>(
+    null
+  );
 
   const columns = [
     { key: "organization", label: "ORGANIZATION" },
@@ -46,6 +66,43 @@ export default function UserTable({ users }: UserTableProps) {
     setActiveMenu(null);
   };
 
+  const handleFilterClick = (
+    columnKey: string,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    const button = event.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const isRightAligned =
+      columnKey === "phoneNumber" ||
+      columnKey === "dateJoined" ||
+      columnKey === "status";
+
+    const position: FilterPosition = {
+      top: rect.bottom + window.scrollY,
+      ...(isRightAligned
+        ? { right: window.innerWidth - rect.right }
+        : { left: rect.left }),
+    };
+
+    if (activeColumn === columnKey) {
+      setShowFilterMenu(false);
+      setActiveColumn(null);
+      setFilterPosition(null);
+    } else {
+      setActiveColumn(columnKey);
+      setShowFilterMenu(true);
+      setFilterPosition(position);
+    }
+  };
+
+  const handleFilter = (filters: FilterData) => {
+    console.log("Applying filters:", filters);
+    setShowFilterMenu(false);
+    setActiveColumn(null);
+    setFilterPosition(null);
+    // TODO: Implement actual filtering logic
+  };
+
   return (
     <div className="user-table">
       <table>
@@ -55,8 +112,11 @@ export default function UserTable({ users }: UserTableProps) {
               <th key={column.key}>
                 <div className="header-content">
                   <span>{column.label}</span>
-                  <button onClick={() => setShowFilterMenu(!showFilterMenu)}>
-                    <Filter size={14} />
+                  <button
+                    className="filter-button"
+                    onClick={(e) => handleFilterClick(column.key, e)}
+                  >
+                    <ListFilter size={14} />
                   </button>
                 </div>
               </th>
@@ -85,10 +145,17 @@ export default function UserTable({ users }: UserTableProps) {
                 {activeMenu === index && (
                   <div className="user-table__actions-menu">
                     <button onClick={() => handleViewDetails(user.id)}>
+                      <Eye size={16} className="icon" />
                       View Details
                     </button>
-                    <button>Blacklist User</button>
-                    <button>Activate User</button>
+                    <button>
+                      <UserX size={16} className="icon" />
+                      Blacklist User
+                    </button>
+                    <button>
+                      <UserCheck size={16} className="icon" />
+                      Activate User
+                    </button>
                   </div>
                 )}
               </td>
@@ -96,6 +163,17 @@ export default function UserTable({ users }: UserTableProps) {
           ))}
         </tbody>
       </table>
+      {showFilterMenu && activeColumn && filterPosition && (
+        <FilterMenu
+          onClose={() => {
+            setShowFilterMenu(false);
+            setActiveColumn(null);
+            setFilterPosition(null);
+          }}
+          onFilter={handleFilter}
+          position={filterPosition}
+        />
+      )}
     </div>
   );
 }

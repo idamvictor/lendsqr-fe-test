@@ -3,6 +3,10 @@
 .user-details-page {
   padding: 1.5rem;
 
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
   .back-link {
     display: flex;
     align-items: center;
@@ -19,16 +23,28 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     h1 {
       font-size: 1.5rem;
       font-weight: 500;
-      color: map-get($colors, "primary");
+      color: #213f7d;
     }
 
     .actions {
       display: flex;
       gap: 1rem;
+
+      @media (max-width: 576px) {
+        width: 100%;
+        justify-content: space-between;
+      }
 
       button {
         padding: 0.5rem 1rem;
@@ -37,26 +53,31 @@
         font-weight: 500;
 
         &.blacklist {
-          border: 1px solid map-get($colors, "error");
-          color: map-get($colors, "error");
+          border: 1px solid #e4033b;
+          color: #e4033b;
         }
 
         &.activate {
-          border: 1px solid map-get($colors, "teal");
-          color: map-get($colors, "teal");
+          border: 1px solid #39cdcc;
+          color: #39cdcc;
         }
       }
     }
   }
 
   .details-card {
-    background: map-get($colors, "white");
+    background: #fff;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px $primary-blue-06;
+    box-shadow: 0 4px 6px -1px rgba(33, 63, 125, 0.06);
 
     .user-summary {
       padding: 2rem;
-      border-bottom: 1px solid $primary-blue-10;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem 1rem;
+      }
+
+      border-bottom: 1px solid rgba(33, 63, 125, 0.1);
 
       .summary-content {
         display: flex;
@@ -73,11 +94,22 @@
           align-items: center;
           gap: 1rem;
 
+          @media (max-width: 576px) {
+            flex-direction: column;
+            text-align: center;
+          }
+
           .avatar {
-            width: 6rem;
-            height: 6rem;
+            width: 5rem;
+            height: 5rem;
+
+            @media (min-width: 768px) {
+              width: 6rem;
+              height: 6rem;
+            }
+
             border-radius: 50%;
-            background: $primary-blue-10;
+            background: rgba(33, 63, 125, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -98,6 +130,7 @@
 
         .divider {
           display: none;
+
           @media (min-width: 768px) {
             display: block;
             height: 4rem;
@@ -132,22 +165,34 @@
     }
 
     .tabs {
-      border-bottom: 1px solid $primary-blue-10;
+      border-bottom: 1px solid rgba(33, 63, 125, 0.1);
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
 
       .tabs-list {
         display: flex;
         min-width: max-content;
+        padding: 0 1rem;
+
+        @media (max-width: 768px) {
+          gap: 1rem;
+        }
 
         button {
           padding: 1rem 1.5rem;
+
+          @media (max-width: 768px) {
+            padding: 0.75rem 1rem;
+          }
+
           font-size: 0.875rem;
           font-weight: 500;
-          color: map-get($colors, "secondary");
+          color: #545f7d;
+          white-space: nowrap;
 
           &.active {
-            color: map-get($colors, "teal");
-            border-bottom: 2px solid map-get($colors, "teal");
+            color: #39cdcc;
+            border-bottom: 2px solid #39cdcc;
           }
         }
       }
@@ -155,6 +200,10 @@
 
     .tab-content {
       padding: 2rem;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem 1rem;
+      }
 
       .section {
         &:not(:first-child) {
@@ -172,10 +221,15 @@
 
         .grid-section {
           display: grid;
-          gap: 1rem 2rem;
+          gap: 1.5rem;
+
+          @media (min-width: 480px) {
+            grid-template-columns: repeat(2, 1fr);
+          }
 
           @media (min-width: 768px) {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
           }
 
           @media (min-width: 1024px) {
