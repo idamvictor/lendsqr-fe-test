@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Home,
   Users,
@@ -31,10 +31,9 @@ export default function Sidebar({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
 }: SidebarProps) {
-  const [activeItem, setActiveItem] = useState("Users");
+  const pathname = usePathname();
 
-  const handleItemClick = (name: string) => {
-    setActiveItem(name);
+  const handleItemClick = () => {
     if (window.innerWidth < 768) {
       setIsMobileMenuOpen(false);
     }
@@ -158,9 +157,9 @@ export default function Sidebar({
         <Link
           href="/dashboard"
           className={`sidebar__menu-item ${
-            activeItem === "Dashboard" ? "sidebar__menu-item--active" : ""
+            pathname === "/dashboard" ? "sidebar__menu-item--active" : ""
           }`}
-          onClick={() => handleItemClick("Dashboard")}
+          onClick={handleItemClick}
         >
           <Home size={16} />
           <span className="sidebar__menu-item-text">Dashboard</span>
@@ -175,11 +174,9 @@ export default function Sidebar({
                   <Link
                     href={item.path}
                     className={`sidebar__menu-item ${
-                      activeItem === item.name
-                        ? "sidebar__menu-item--active"
-                        : ""
+                      pathname === item.path ? "sidebar__menu-item--active" : ""
                     }`}
-                    onClick={() => handleItemClick(item.name)}
+                    onClick={handleItemClick}
                   >
                     {item.icon}
                     <span className="sidebar__menu-item-text">{item.name}</span>
