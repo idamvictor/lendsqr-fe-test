@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Lendsqr Admin",
   description: "Admin dashboard for Lendsqr",
+  icons: {
+    icon: "https://res.cloudinary.com/dyp8gtllq/image/upload/v1746494564/Screenshot_2025-05-06_022215_ovqhi0.png",
+  },
 };
 
 export default function RootLayout({
