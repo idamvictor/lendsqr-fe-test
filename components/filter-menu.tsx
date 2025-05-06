@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import userData from "@/data/userdata.json";
 
 interface FilterData {
   organization: string;
@@ -26,6 +27,12 @@ export default function FilterMenu({
 }: FilterMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Get unique organizations for the dropdown
+  const organizations = useMemo(() => {
+    const uniqueOrgs = new Set(userData.map((user) => user.orgName));
+    return Array.from(uniqueOrgs).sort();
+  }, []);
 
   useEffect(() => {
     const adjustMenuPosition = () => {
@@ -76,6 +83,14 @@ export default function FilterMenu({
   const handleReset = () => {
     if (formRef.current) {
       formRef.current.reset();
+      onFilter({
+        organization: "",
+        username: "",
+        email: "",
+        date: "",
+        phoneNumber: "",
+        status: "",
+      });
     }
     onClose();
   };
@@ -93,6 +108,11 @@ export default function FilterMenu({
           <label>Organization</label>
           <select name="organization">
             <option value="">Select</option>
+            {organizations.map((org) => (
+              <option key={org} value={org}>
+                {org}
+              </option>
+            ))}
           </select>
         </div>
 

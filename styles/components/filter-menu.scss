@@ -1,22 +1,26 @@
 .filter-menu {
-  position: fixed; // Changed from absolute to fixed
+  position: absolute;
   background: #ffffff;
   border: 1px solid rgba(84, 95, 125, 0.14);
   box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   padding: 1.5rem;
-  min-width: 270px;
-  margin-top: 0.5rem;
-  z-index: 1000; // Increased z-index to ensure it shows above table
+  width: 270px;
+  z-index: 1000;
+  margin-top: 10px;
 
   &__field {
     margin-bottom: 1.25rem;
 
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     label {
       display: block;
-      font-size: 0.875rem;
+      font-size: 14px;
       color: #545f7d;
-      margin-bottom: 0.375rem;
+      margin-bottom: 0.5rem;
     }
 
     input,
@@ -26,17 +30,17 @@
       background: #ffffff;
       border: 1px solid rgba(33, 63, 125, 0.2);
       border-radius: 8px;
-      font-size: 0.875rem;
+      font-size: 14px;
       color: #545f7d;
+
+      &:focus {
+        outline: none;
+        border-color: #213f7d;
+      }
 
       &::placeholder {
         color: #545f7d;
         opacity: 0.7;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: #39cdcc;
       }
     }
   }
@@ -44,43 +48,35 @@
   &__buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 1.875rem;
-  }
+    margin-top: 1.5rem;
 
-  &__button {
-    &--reset,
-    &--filter {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-size: 0.875rem;
-      font-weight: 600;
+    button {
       flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      min-width: 98px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      transition: all 0.3s ease;
 
-    &--reset {
-      background: transparent;
-      border: 1px solid #545f7d;
-      color: #545f7d;
+      &.filter-menu__button--reset {
+        background: transparent;
+        border: 1px solid #545f7d;
+        color: #545f7d;
 
-      &:hover {
-        background: rgba(84, 95, 125, 0.1);
+        &:hover {
+          background: rgba(84, 95, 125, 0.1);
+        }
       }
-    }
 
-    &--filter {
-      background: #39cdcc;
-      border: none;
-      color: white;
+      &.filter-menu__button--filter {
+        background: #39cdcc;
+        border: 1px solid #39cdcc;
+        color: #ffffff;
 
-      &:hover {
-        background: darken(#39cdcc, 5%);
+        &:hover {
+          background: darken(#39cdcc, 5%);
+        }
       }
     }
   }

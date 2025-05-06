@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MoreVertical, Eye, UserX, UserCheck, ListFilter } from "lucide-react";
 import { useRouter } from "next/navigation";
 import FilterMenu from "./filter-menu";
@@ -26,6 +26,7 @@ interface User {
 
 interface UserTableProps {
   users: User[];
+  onFilter: (filters: FilterData) => void;
 }
 
 interface FilterPosition {
@@ -34,7 +35,7 @@ interface FilterPosition {
   right?: number;
 }
 
-export default function UserTable({ users }: UserTableProps) {
+export default function UserTable({ users, onFilter }: UserTableProps) {
   const router = useRouter();
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [activeColumn, setActiveColumn] = useState<string | null>(null);
@@ -42,6 +43,7 @@ export default function UserTable({ users }: UserTableProps) {
   const [filterPosition, setFilterPosition] = useState<FilterPosition | null>(
     null
   );
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const columns = [
     { key: "orgName", label: "ORGANIZATION" },
@@ -71,18 +73,27 @@ export default function UserTable({ users }: UserTableProps) {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     const button = event.currentTarget;
-    const rect = button.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    const tableRect = tableRef.current?.getBoundingClientRect();
+
+    if (!tableRect) return;
+
+    // Calculate position relative to the table
+    const position: FilterPosition = {
+      top: buttonRect.bottom - tableRect.top,
+      left: buttonRect.left - tableRect.left,
+    };
+
+    // Adjust horizontal position for right side columns
     const isRightAligned =
       columnKey === "phoneNumber" ||
       columnKey === "createdAt" ||
       columnKey === "status";
 
-    const position: FilterPosition = {
-      top: rect.bottom + window.scrollY,
-      ...(isRightAligned
-        ? { right: window.innerWidth - rect.right }
-        : { left: rect.left }),
-    };
+    if (isRightAligned) {
+      position.left = undefined;
+      position.right = tableRect.right - buttonRect.right;
+    }
 
     if (activeColumn === columnKey) {
       setShowFilterMenu(false);
@@ -95,12 +106,27 @@ export default function UserTable({ users }: UserTableProps) {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tableRef.current &&
+        !tableRef.current.contains(event.target as Node)
+      ) {
+        setShowFilterMenu(false);
+        setActiveColumn(null);
+        setFilterPosition(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleFilter = (filters: FilterData) => {
-    console.log("Applying filters:", filters);
+    onFilter(filters);
     setShowFilterMenu(false);
     setActiveColumn(null);
     setFilterPosition(null);
-    // TODO: Implement actual filtering logic
   };
 
   const formatDate = (dateString: string) => {
@@ -112,7 +138,7 @@ export default function UserTable({ users }: UserTableProps) {
   };
 
   return (
-    <div className="user-table">
+    <div className="user-table" ref={tableRef}>
       <table>
         <thead>
           <tr>
