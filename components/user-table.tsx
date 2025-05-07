@@ -137,6 +137,14 @@ export default function UserTable({ users, onFilter }: UserTableProps) {
     });
   };
 
+  const formatUsername = (username: string) => {
+    // Remove the ReferenceError part and any extra spaces
+    const cleanUsername = username.replace(/<ReferenceError:.*>/, "").trim();
+    // Generate a random 4-digit number
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    return `${cleanUsername}${randomNum}`;
+  };
+
   return (
     <div className="user-table" ref={tableRef}>
       <table>
@@ -162,7 +170,7 @@ export default function UserTable({ users, onFilter }: UserTableProps) {
           {users.map((user, index) => (
             <tr key={index}>
               <td>{user.orgName}</td>
-              <td>{user.userName}</td>
+              <td>{formatUsername(user.userName)}</td>
               <td>{user.email}</td>
               <td>{user.phoneNumber}</td>
               <td>{formatDate(user.createdAt)}</td>
