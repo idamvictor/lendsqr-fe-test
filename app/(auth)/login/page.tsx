@@ -8,7 +8,7 @@ import { loginSchema } from "./schema";
 import type { z } from "zod";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
-import styles from "@/styles/components/Login.module.scss";
+import "@/styles/components/login.scss";
 import { useState } from "react";
 
 type LoginInputs = z.infer<typeof loginSchema>;
@@ -27,13 +27,12 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginInputs) => {
     try {
-      // We'll rely on isSubmitting for the loading state
       await login(data.email, data.password);
       toast.success("Successfully logged in!", {
         duration: 3000,
         style: {
           background: "#39CDCC",
-          color: "#fff",
+          color: "#FFFFFF",
         },
       });
       router.push("/dashboard");
@@ -43,102 +42,109 @@ export default function LoginPage() {
         duration: 4000,
         style: {
           background: "#FF0000",
-          color: "#fff",
+          color: "#FFFFFF",
         },
       });
     }
   };
 
   return (
-    <div className={styles.loginContainer}>
-      {/* Left side with logo and illustration */}
-      <div className={styles.loginIllustration}>
-        <Image
-          src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
-          alt="Lendsqr Logo"
-          width={170}
-          height={36}
-          priority
-        />
-        <Image
-          src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/pablo-sign-in_1_qvq2ua.svg"
-          alt="Login Illustration"
-          width={600}
-          height={400}
-          priority
-        />
-      </div>
-
-      {/* Right side with login form */}
-      <div className={styles.loginForm}>
-        <div className={styles.mobileLogo}>
+    <div className="login-page">
+      <div className="left-side">
+        <div className="logo-container">
           <Image
             src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
             alt="Lendsqr Logo"
-            width={170}
+            width={174}
             height={36}
             priority
           />
         </div>
-        <h1>Welcome!</h1>
-        <p className={styles["login-description"]}>Enter details to login.</p>
+        <div className="illustration-container">
+          <Image
+            src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/pablo-sign-in_1_qvq2ua.svg"
+            alt="Login Illustration"
+            width={600}
+            height={400}
+            priority
+          />
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.formGroup}>
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email")}
-              aria-invalid={!!errors.email}
-            />
-            {errors.email && (
-              <p className={styles.errorMessage}>{errors.email.message}</p>
-            )}
-          </div>
+      <div className="right-side">
+        <div className="mobile-logo">
+          <Image
+            src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1746315981/logo_lr24it.svg"
+            alt="Lendsqr Logo"
+            width={174}
+            height={36}
+            priority
+          />
+        </div>
 
-          <div className={styles.formGroup}>
-            <div className={styles.passwordInput}>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                {...register("password")}
-                aria-invalid={!!errors.password}
-              />
-              <button
-                type="button"
-                className={styles.showPassword}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? "HIDE" : "SHOW"}
-              </button>
+        <div className="login-form-container">
+          <h1>Welcome!</h1>
+          <p>Enter details to login.</p>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-group">
+              <div className="input-wrapper">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  {...register("email")}
+                  aria-invalid={!!errors.email}
+                />
+                {errors.email && (
+                  <span className="error-message">{errors.email.message}</span>
+                )}
+              </div>
             </div>
-            {errors.password && (
-              <p className={styles.errorMessage}>{errors.password.message}</p>
-            )}
-          </div>
 
-          <a href="#" className={styles.forgotPassword}>
-            FORGOT PASSWORD?
-          </a>
+            <div className="form-group">
+              <div className="input-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  {...register("password")}
+                  aria-invalid={!!errors.password}
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "HIDE" : "SHOW"}
+                </button>
+                {errors.password && (
+                  <span className="error-message">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            className={`${styles.loginButton} ${
-              isSubmitting ? styles.loading : ""
-            }`}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <span className={styles.loadingSpinner}>
-                <span className={styles.spinnerDot}></span>
-                <span className={styles.spinnerDot}></span>
-                <span className={styles.spinnerDot}></span>
-              </span>
-            ) : (
-              "LOG IN"
-            )}
-          </button>
-        </form>
+            <a href="#" className="forgot-password">
+              FORGOT PASSWORD?
+            </a>
+
+            <button
+              type="submit"
+              className="login-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <span className="loading-spinner">
+                  <span className="spinner-dot"></span>
+                  <span className="spinner-dot"></span>
+                  <span className="spinner-dot"></span>
+                </span>
+              ) : (
+                "LOG IN"
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

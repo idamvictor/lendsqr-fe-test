@@ -1,19 +1,26 @@
 .login-page {
   min-height: 100vh;
   display: flex;
+  background: #fbfbfb;
 
   .left-side {
     display: none;
+    background: #ffffff;
 
     @media (min-width: 768px) {
       display: flex;
       width: 50%;
       flex-direction: column;
-      padding: 2.5rem;
+      padding: 3rem 4rem;
     }
 
     .logo-container {
-      margin-bottom: 5rem;
+      margin-bottom: 8rem;
+
+      img {
+        width: 173.76px;
+        height: 36px;
+      }
     }
 
     .illustration-container {
@@ -23,7 +30,8 @@
       justify-content: center;
 
       img {
-        max-width: 100%;
+        max-width: 600px;
+        width: 100%;
       }
     }
   }
@@ -32,43 +40,64 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 2rem;
     justify-content: center;
+    align-items: center;
+    background: #fbfbfb;
 
     @media (min-width: 768px) {
       width: 50%;
-      padding: 2.5rem;
+      padding: 3rem 4rem;
+      align-items: flex-start;
     }
 
     @media (min-width: 1024px) {
-      padding: 5rem;
+      padding: 6rem;
     }
 
     .mobile-logo {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      align-self: center;
 
       @media (min-width: 768px) {
         display: none;
       }
+
+      img {
+        width: 173.76px;
+        height: 36px;
+      }
     }
 
     .login-form-container {
-      max-width: 28rem;
+      max-width: 447px;
+      width: 100%;
 
-      h1 {
-        color: map-get($colors, "primary");
-        font-size: 1.875rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+      @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
 
-        @media (min-width: 768px) {
-          font-size: 2.25rem;
+        form {
+          width: 100%;
+          max-width: 380px;
         }
       }
 
+      h1 {
+        color: #213f7d;
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        line-height: 55px;
+      }
+
       p {
-        color: map-get($colors, "secondary");
-        margin-bottom: 2.5rem;
+        color: #545f7d;
+        font-size: 20px;
+        line-height: 27px;
+        margin-bottom: 3rem;
       }
 
       form {
@@ -77,34 +106,56 @@
         gap: 1.5rem;
 
         .form-group {
-          margin-bottom: 0; // Remove margin since we're using gap
+          margin-bottom: 0;
 
           .input-wrapper {
             position: relative;
 
+            .error-message {
+              color: #ff0000;
+              font-size: 12px;
+              margin-top: 5px;
+              font-weight: 500;
+              text-align: left;
+              position: absolute;
+              bottom: -20px;
+              left: 0;
+            }
+
             input {
               width: 100%;
-              padding: 0.75rem 1rem;
-              border: 1px solid rgba(map-get($colors, "secondary"), 0.15);
-              border-radius: 0.375rem;
-              color: map-get($colors, "secondary");
+              height: 50px;
+              padding: 0 1rem;
+              border: 2px solid rgba(84, 95, 125, 0.15);
+              border-radius: 5px;
+              color: #545f7d;
+              font-size: 14px;
+              line-height: 19px;
 
               &:focus {
                 outline: none;
-                border-color: map-get($colors, "teal");
-                box-shadow: 0 0 0 1px map-get($colors, "teal");
+                border-color: #39cdcc;
+              }
+
+              &::placeholder {
+                color: #545f7d;
+                opacity: 0.6;
+              }
+
+              &[aria-invalid="true"] {
+                border-color: #ff0000;
               }
             }
 
             .password-toggle {
               position: absolute;
-              right: 0.75rem;
+              right: 1rem;
               top: 50%;
               transform: translateY(-50%);
-              color: map-get($colors, "teal");
+              color: #39cdcc;
               text-transform: uppercase;
-              font-size: 0.75rem;
-              font-weight: 700;
+              font-size: 12px;
+              font-weight: 600;
               background: none;
               border: none;
               cursor: pointer;
@@ -113,28 +164,38 @@
         }
 
         .forgot-password {
-          color: map-get($colors, "teal");
+          color: #39cdcc;
           text-transform: uppercase;
-          font-size: 0.75rem;
-          font-weight: 700;
+          font-size: 12px;
+          font-weight: 600;
           text-decoration: none;
-          display: inline-block;
           margin-bottom: 1.5rem;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
 
         .login-button {
           width: 100%;
-          background-color: map-get($colors, "teal");
-          color: map-get($colors, "white");
-          padding: 0.75rem 1rem;
-          border-radius: 0.375rem;
-          font-weight: 700;
+          height: 48px;
+          background: #39cdcc;
+          color: #ffffff;
+          border: none;
+          border-radius: 8px;
+          font-weight: 600;
           text-transform: uppercase;
-          font-size: 0.875rem;
+          font-size: 14px;
+          cursor: pointer;
           transition: background-color 0.2s;
 
           &:hover {
-            background-color: rgba(map-get($colors, "teal"), 0.9);
+            background: rgba(57, 205, 204, 0.9);
+          }
+
+          &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
           }
         }
       }
