@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../lib/axios";
+import { MockApiService } from "../services/mockApi";
 import { User } from "../types/user";
 
-const USERS_ENDPOINT = "/b40dd9f9-f775-4875-b9f1-c225040e598c";
-
 const fetchUser = async (userId: string): Promise<User | undefined> => {
-  const { data } = await api.get<User[]>(USERS_ENDPOINT);
-  return data.find((user) => user.id === userId);
+  return MockApiService.getUser(userId);
 };
 
 export const useUser = (userId: string) => {

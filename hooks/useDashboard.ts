@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../lib/axios";
+import { MockApiService } from "../services/mockApi";
 import { User } from "../types/user";
 
-const USERS_ENDPOINT = "/b40dd9f9-f775-4875-b9f1-c225040e598c";
-
-const fetchDashboardData = async () => {
-  const { data } = await api.get<User[]>(USERS_ENDPOINT);
-  return data;
+const fetchDashboardData = async (): Promise<User[]> => {
+  return MockApiService.getUsers();
 };
 
 export const useDashboard = () => {
