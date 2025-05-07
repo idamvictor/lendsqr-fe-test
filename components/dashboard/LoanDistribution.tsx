@@ -2,10 +2,9 @@ import React from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
 import userData from "@/data/userdata.json";
 import { ChartData } from "./types";
-import { CustomPieTooltip, COLORS } from "./utils";
+import { COLORS } from "./utils";
 
 const LoanDistribution: React.FC = () => {
-  // Calculate loan distribution based on account balance ranges
   const calculateLoanDistribution = () => {
     const smallLoans = userData.filter(
       (user) => user.accountBalance > 0 && user.accountBalance <= 2000000
@@ -42,40 +41,38 @@ const LoanDistribution: React.FC = () => {
   return (
     <div className="loan-distribution">
       <h2>Loan Distribution</h2>
-      <div className="chart">
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip content={<CustomPieTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="legend">
-        {data.map((entry, index) => (
-          <div key={index} className="legend-item">
-            <div
-              className="color-box"
-              style={{ backgroundColor: COLORS[index % COLORS.length] }}
-            />
-            <span>{entry.name}</span>
-            <span className="percentage">{entry.percentage}%</span>
-          </div>
-        ))}
+      <div className="chart-content">
+        <div className="chart">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="legend">
+          {data.map((entry, index) => (
+            <div key={index} className="legend-item">
+              <div
+                className="color-box"
+                style={{ backgroundColor: COLORS[index % COLORS.length] }}
+              />
+              <span>{entry.name}</span>
+              <span className="percentage">{entry.percentage}%</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

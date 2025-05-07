@@ -23,3 +23,86 @@
     }
   }
 }
+
+.user-activity {
+  background: #ffffff;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  padding: 24px;
+  height: 100%;
+
+  h2 {
+    color: #213f7d;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .chart {
+    position: relative;
+    height: 300px;
+    margin: 0 -10px; // Compensate for chart padding
+
+    .recharts-cartesian-grid-horizontal line,
+    .recharts-cartesian-grid-vertical line {
+      stroke: rgba(33, 63, 125, 0.1);
+    }
+
+    .recharts-x-axis .recharts-cartesian-axis-tick-value,
+    .recharts-y-axis .recharts-cartesian-axis-tick-value {
+      fill: #545f7d;
+      font-size: 12px;
+    }
+
+    .recharts-line-curve {
+      stroke: #39cdcc;
+      stroke-width: 2;
+    }
+
+    .recharts-tooltip-wrapper {
+      .recharts-default-tooltip {
+        background-color: #ffffff !important;
+        border: 1px solid rgba(33, 63, 125, 0.1) !important;
+        border-radius: 4px;
+        padding: 8px 12px !important;
+
+        .recharts-tooltip-label {
+          color: #545f7d;
+          font-size: 12px;
+          margin-bottom: 4px;
+        }
+
+        .recharts-tooltip-item {
+          color: #213f7d;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .metrics {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(33, 63, 125, 0.1);
+
+    .metric {
+      text-align: center;
+
+      .label {
+        color: #545f7d;
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+
+      .value {
+        color: #213f7d;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px; // Consistent gap between all sections
+  min-height: calc(100vh - 100px);
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -26,6 +27,9 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     height: 100%;
+    border: 1px solid rgba(33, 63, 125, 0.06);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    padding: 20px;
 
     @media (max-width: 768px) {
       padding: 20px;
@@ -90,6 +94,40 @@
 
     @media (max-width: 768px) {
       gap: 20px;
+    }
+  }
+
+  .dashboard-content {
+    display: grid;
+    gap: 30px;
+
+    .summary-cards {
+      // ...existing code...
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .activity-section {
+      margin-bottom: 24px;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }

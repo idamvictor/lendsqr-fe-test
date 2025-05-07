@@ -7,6 +7,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+      overflow-x: auto;
 
     h3 {
       margin-bottom: 20px;

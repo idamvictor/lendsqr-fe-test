@@ -1,33 +1,56 @@
 .custom-tooltip {
-  background: white;
-  border: 1px solid #f2f2f2;
+  background: #ffffff;
+  border: 1px solid rgba(33, 63, 125, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 120px;
 
-  .label {
+  .tooltip-label {
     color: #545f7d;
     font-size: 12px;
     margin-bottom: 4px;
   }
 
-  .value {
+  .tooltip-value {
     color: #213f7d;
-    font-weight: 600;
     font-size: 14px;
-    margin-bottom: 4px;
+    font-weight: 600;
   }
 
-  .percentage {
-    color: #39cdcc;
-    font-size: 12px;
+  &.pie-tooltip {
+    .tooltip-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .color-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+    }
   }
 }
 
-.recharts-default-tooltip {
-  background-color: white !important;
-  border: 1px solid #f2f2f2 !important;
-  border-radius: 4px !important;
-  padding: 12px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+// Shared chart styles
+.recharts-tooltip-wrapper {
+  .recharts-default-tooltip {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(33, 63, 125, 0.1) !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px !important;
+    padding: 12px !important;
+  }
+}
+
+// Chart axis and grid styles
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(33, 63, 125, 0.1);
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: #545f7d;
+  font-size: 12px;
 }
