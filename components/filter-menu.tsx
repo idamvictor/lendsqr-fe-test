@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useRef, useMemo } from "react";
-import userData from "@/data/userdata.json";
+import { useUsers } from "@/hooks/useUsers";
 
 interface FilterData {
   organization: string;
@@ -25,14 +27,16 @@ export default function FilterMenu({
   onFilter,
   position,
 }: FilterMenuProps) {
+  const { data: users } = useUsers();
   const menuRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   // Get unique organizations for the dropdown
   const organizations = useMemo(() => {
-    const uniqueOrgs = new Set(userData.map((user) => user.orgName));
+    if (!users) return [];
+    const uniqueOrgs = new Set(users.map((user) => user.orgName));
     return Array.from(uniqueOrgs).sort();
-  }, []);
+  }, [users]);
 
   useEffect(() => {
     const adjustMenuPosition = () => {

@@ -1,16 +1,10 @@
 import React from "react";
 import { useDashboard } from "@/hooks/useDashboard";
 import { Transaction } from "./types";
-// import Loading from "@/components/loading";
-// import Error from "@/components/error";
 
 const TransactionsTable: React.FC = () => {
-  const { data: userData, isLoading, error } = useDashboard();
+  const { data: userData } = useDashboard();
 
-  if (isLoading) return <>Loading...</>;
-  if (error) return <>Error loading transactions</>;
-  // if (isLoading) return <Loading />;
-  // if (error) return <Error message="" />;
   if (!userData) return null;
 
   const generateRecentTransactions = (): Transaction[] => {

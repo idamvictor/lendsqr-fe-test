@@ -2,6 +2,8 @@
 
 import { Star } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
+import Loading from "./loading";
+import Error from "./error";
 
 interface UserDetailsProps {
   userId: string;
@@ -34,15 +36,23 @@ export default function UserDetails({ userId }: UserDetailsProps) {
   };
 
   if (isLoading) {
-    return <div>Loading user details...</div>;
+    return <div><Loading /></div>;
   }
 
   if (error) {
-    return <div>Error loading user details</div>;
+    return <div><Error
+              message={
+                "Failed to load user details"
+              }
+            /></div>;
   }
 
   if (!user) {
-    return <div>User not found</div>;
+    return (
+      <div>
+        <Error message={"User Not Found"} />
+      </div>
+    );
   }
 
   return (

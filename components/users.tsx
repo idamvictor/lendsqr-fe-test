@@ -6,6 +6,8 @@ import UserStats from "./user-stats";
 import UserTable from "./user-table";
 import Pagination from "./pagination";
 import { User } from "@/types/user";
+import Loading from "./loading";
+import Error from "./error";
 
 interface FilterData {
   organization: string;
@@ -67,11 +69,15 @@ export default function Users() {
   }, [filters, users]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div><Loading /></div>;
   }
 
   if (error) {
-    return <div>Error loading users</div>;
+    return <div><Error
+              message={
+                "Failed to load User data"
+              }
+            /></div>;
   }
 
   // Calculate pagination

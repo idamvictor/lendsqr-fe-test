@@ -14,8 +14,8 @@
 @import "./components/dashboard";
 @import "./components/not-found"; // Add this line
 @import "./components/filter-menu";
-// @import "components/loading";
-// @import "components/error";
+@import "./components/loading";
+@import "./components/error";
 
 // Base styles
 body {
