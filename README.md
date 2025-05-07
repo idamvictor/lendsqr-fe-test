@@ -2,6 +2,12 @@
 
 A modern, responsive admin dashboard built with Next.js 14, TypeScript, and SCSS. This application provides a comprehensive interface for managing lending operations, user data, and financial metrics.
 
+## Quick Links 🔗
+
+- ✨ **Live Demo**: [View Application](https://lendsqr-admin-dashboard.vercel.app)
+- 🎥 **Video Demo**: [Watch Demo](https://www.loom.com/share/your-loom-video-id)
+- 💻 **GitHub Repository**: [View Code](https://github.com/your-username/lendsqr-fe-test-v1)
+
 ## Features
 
 - **Authentication System**
