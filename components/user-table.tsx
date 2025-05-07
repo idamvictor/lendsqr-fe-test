@@ -137,12 +137,12 @@ export default function UserTable({ users, onFilter }: UserTableProps) {
     });
   };
 
-  const formatUsername = (username: string) => {
-    // Remove the ReferenceError part and any extra spaces
-    const cleanUsername = username.replace(/<ReferenceError:.*>/, "").trim();
-    // Get only the first part of the username (first name)
-    return cleanUsername.split(" ")[0];
-  };
+  // const formatUsername = (username: string) => {
+  //   // Remove the ReferenceError part and any extra spaces
+  //   const cleanUsername = username.replace(/<ReferenceError:.*>/, "").trim();
+  //   // Get only the first part of the username (first name)
+  //   return cleanUsername.split(" ")[0];
+  // };
 
   return (
     <div className="user-table" ref={tableRef}>
@@ -169,7 +169,8 @@ export default function UserTable({ users, onFilter }: UserTableProps) {
           {users.map((user, index) => (
             <tr key={index}>
               <td>{user.orgName}</td>
-              <td>{formatUsername(user.userName)}</td>
+              {/* <td>{formatUsername(user.userName)}</td> */}
+              <td>{user.userName}</td>
               <td>{user.email}</td>
               <td>{user.phoneNumber}</td>
               <td>{formatDate(user.createdAt)}</td>
