@@ -1,6 +1,7 @@
-import { Bell, Menu, Search, X } from "lucide-react";
+import { Bell, Menu, Search, X, LogOut } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar({
   toggleSidebar,
@@ -8,6 +9,17 @@ export default function Navbar({
   toggleSidebar: () => void;
 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    setIsProfileOpen(false);
+  };
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
+  };
 
   return (
     <header className="navbar">
@@ -59,7 +71,7 @@ export default function Navbar({
           <span className="notification-badge">8</span>
         </div>
         <div className="profile">
-          <div className="profile__image">
+          <div className="profile__image" onClick={toggleProfile}>
             <Image
               src="https://res.cloudinary.com/dyp8gtllq/image/upload/v1744069087/idam_3d_small_lb6fzg.png"
               alt="Profile"
@@ -68,7 +80,7 @@ export default function Navbar({
               className="rounded-full"
             />
           </div>
-          <div className="profile__info">
+          <div className="profile__info" onClick={toggleProfile}>
             <span>Adedeji</span>
             <svg
               width="12"
@@ -76,6 +88,9 @@ export default function Navbar({
               viewBox="0 0 12 8"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className={`transform transition-transform ${
+                isProfileOpen ? "rotate-180" : ""
+              }`}
             >
               <path
                 d="M1.41 0.590088L6 5.17009L10.59 0.590088L12 2.00009L6 8.00009L0 2.00009L1.41 0.590088Z"
@@ -83,6 +98,14 @@ export default function Navbar({
               />
             </svg>
           </div>
+          {isProfileOpen && (
+            <div className="profile__dropdown">
+              <button onClick={handleLogout} className="profile__dropdown-item">
+                <LogOut size={16} />
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
