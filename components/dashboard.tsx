@@ -10,7 +10,7 @@ import UserActivity from "./dashboard/UserActivity";
 import LoanDistribution from "./dashboard/LoanDistribution";
 import { useUsers } from "@/hooks/useUsers";
 import { useDashboard } from "@/hooks/useDashboard";
-import Loading from "@/components/loading";
+import Loader from "@/components/loader";
 import Error from "@/components/error";
 
 const Dashboard: React.FC = () => {
@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
   if (isUsersLoading || isDashboardLoading) {
     return (
       <div className="dashboard">
-        <Loading />
+        <Loader />
       </div>
     );
   }

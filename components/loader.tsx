@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function Loading() {
+export default function Loader() {
   return (
     <div className="loading-wrapper">
       <div className="loading-container">

@@ -2,7 +2,7 @@
 
 import { Star } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
-import Loading from "./loading";
+import Loader from "./loader";
 import Error from "./error";
 
 interface UserDetailsProps {
@@ -36,15 +36,19 @@ export default function UserDetails({ userId }: UserDetailsProps) {
   };
 
   if (isLoading) {
-    return <div><Loading /></div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
-    return <div><Error
-              message={
-                "Failed to load user details"
-              }
-            /></div>;
+    return (
+      <div>
+        <Error message={"Failed to load user details"} />
+      </div>
+    );
   }
 
   if (!user) {
