@@ -1,11 +1,11 @@
-// Rename this file to users.tsx
 "use client";
 
 import { useState, useMemo } from "react";
-import userData from "@/data/userdata.json";
+import { useUsers } from "@/hooks/useUsers";
 import UserStats from "./user-stats";
 import UserTable from "./user-table";
 import Pagination from "./pagination";
+import { User } from "@/types/user";
 
 interface FilterData {
   organization: string;
@@ -17,6 +17,7 @@ interface FilterData {
 }
 
 export default function Users() {
+  const { data: users = [], isLoading, error } = useUsers();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filters, setFilters] = useState<FilterData>({
@@ -30,7 +31,7 @@ export default function Users() {
 
   // Filter users based on filter criteria
   const filteredUsers = useMemo(() => {
-    return userData.filter((user) => {
+    return users.filter((user: User) => {
       const matchesOrg =
         !filters.organization ||
         user.orgName.toLowerCase().includes(filters.organization.toLowerCase());
@@ -63,7 +64,15 @@ export default function Users() {
         matchesStatus
       );
     });
-  }, [filters]);
+  }, [filters, users]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading users</div>;
+  }
 
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -73,15 +82,19 @@ export default function Users() {
 
   // Calculate stats
   const stats = {
-    totalUsers: userData.length,
-    activeUsers: userData.filter((user) => user.status === "active").length,
-    usersWithLoans: userData.filter((user) => user.accountBalance > 0).length,
-    usersWithSavings: userData.filter((user) => user.accountBalance > 0).length,
+    totalUsers: users.length,
+    activeUsers: users.filter((user: User) => user.status === "active").length,
+    usersWithLoans: users.filter(
+      (user: User) => parseFloat(user.accountBalance) > 0
+    ).length,
+    usersWithSavings: users.filter(
+      (user: User) => parseFloat(user.accountBalance) > 0
+    ).length,
   };
 
   const handleFilter = (newFilters: FilterData) => {
     setFilters(newFilters);
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
   };
 
   return (

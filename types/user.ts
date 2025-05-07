@@ -1,51 +1,43 @@
-export interface User {
-  id: string;
-  createdAt: string;
-  orgName: string;
-  userName: string;
-  email: string;
-  phoneNumber: string;
-  lastActiveDate: string;
-  profile: UserProfile;
-  guarantor: Guarantor;
-  accountBalance: string;
-  accountNumber: number;
-  socials: Socials;
-  education: Education;
-  status: "inactive" | "active" | "blacklisted" | "pending";
-}
-
-interface UserProfile {
+export interface Guarantor {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  avatar: string;
-  gender: string;
-  bvn: number;
   address: string;
+  gender: string;
+}
+
+export interface Profile {
   currency: string;
-}
-
-interface Guarantor {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
+  bvn: string;
   gender: string;
   address: string;
 }
 
-interface Socials {
-  facebook: string;
-  instagram: string;
-  twitter: string;
-}
-
-interface Education {
+export interface Education {
   level: string;
   employmentStatus: string;
   sector: string;
   duration: string;
-  officeEmail: string;
-  monthlyIncome: string[];
-  loanRepayment: string;
+}
+
+export interface Socials {
+  twitter: string;
+  facebook: string;
+  instagram: string;
+}
+
+export interface User {
+  id: string;
+  orgName: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  createdAt: string;
+  status: "active" | "inactive" | "pending" | "blacklisted";
+  accountBalance: string;
+  accountNumber: string;
+  profile: Profile;
+  education: Education;
+  socials: Socials;
+  guarantor: Guarantor;
 }

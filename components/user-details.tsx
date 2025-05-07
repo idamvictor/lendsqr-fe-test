@@ -1,8 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { useMemo } from "react";
-import userData from "@/data/userdata.json";
+import { useUser } from "@/hooks/useUser";
 
 interface UserDetailsProps {
   userId: string;
@@ -16,9 +15,7 @@ const getInitials = (name: string) => {
 };
 
 export default function UserDetails({ userId }: UserDetailsProps) {
-  const user = useMemo(() => {
-    return userData.find((user) => user.id === userId);
-  }, [userId]);
+  const { data: user, isLoading, error } = useUser(userId);
 
   const tabs = [
     "General Details",
@@ -29,16 +26,24 @@ export default function UserDetails({ userId }: UserDetailsProps) {
     "App and System",
   ];
 
-  if (!user) {
-    return <div>User not found</div>;
-  }
-
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount: string) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
-    }).format(amount);
+    }).format(parseFloat(amount));
   };
+
+  if (isLoading) {
+    return <div>Loading user details...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading user details</div>;
+  }
+
+  if (!user) {
+    return <div>User not found</div>;
+  }
 
   return (
     <div className="details-card">
@@ -59,9 +64,7 @@ export default function UserDetails({ userId }: UserDetailsProps) {
           <div className="tier-section">
             <p>User&apos;s Tier</p>
             <div className="stars">
-              {[...Array(user.starRating || 0)].map((_, index) => (
-                <Star key={index} className="star-icon" size={16} />
-              ))}
+              <Star className="star-icon" size={16} />
             </div>
           </div>
 
@@ -178,8 +181,8 @@ export default function UserDetails({ userId }: UserDetailsProps) {
               <p>{user.guarantor?.address || "N/A"}</p>
             </div>
             <div className="field">
-              <p>RELATIONSHIP</p>
-              <p>{user.guarantor?.relationship || "N/A"}</p>
+              <p>GENDER</p>
+              <p>{user.guarantor?.gender || "N/A"}</p>
             </div>
           </div>
         </div>
