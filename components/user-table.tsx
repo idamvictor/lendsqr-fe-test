@@ -140,9 +140,8 @@ export default function UserTable({ users, onFilter }: UserTableProps) {
   const formatUsername = (username: string) => {
     // Remove the ReferenceError part and any extra spaces
     const cleanUsername = username.replace(/<ReferenceError:.*>/, "").trim();
-    // Generate a random 4-digit number
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    return `${cleanUsername}${randomNum}`;
+    // Get only the first part of the username (first name)
+    return cleanUsername.split(" ")[0];
   };
 
   return (
