@@ -42,9 +42,8 @@
   }
 
   // Apply container styles to all sections
-  .chart-container,
   .transactions-table,
-  .pending-approvals,
+
   .activity-wrapper .chart-container,
   .distribution-wrapper .chart-container {
     @extend .container-card;
