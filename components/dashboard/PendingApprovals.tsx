@@ -1,16 +1,28 @@
 import React from "react";
-import userData from "@/data/userdata.json";
+import { useDashboard } from "@/hooks/useDashboard";
 import { PendingApproval } from "./types";
+// import Loading from "@/components/loading";
+// import Error from "@/components/error";
 
 const PendingApprovals: React.FC = () => {
+  const { data: userData, isLoading, error } = useDashboard();
+
+  if (isLoading) return <>Loading...</>;
+  if (error) return <>Error loading pending approvals</>;
+  // if (error) return <Error message="Error loading pending approvals" />;
+  if (!userData) return null;
+
   const getPendingApprovals = (): PendingApproval[] => {
     return userData
       .filter((user) => user.status === "pending")
       .slice(0, 5)
       .map((user) => ({
         user: user.userName,
-        type: user.accountBalance > 5000000 ? "Business Loan" : "Personal Loan",
-        amount: `₦${user.accountBalance.toLocaleString()}`,
+        type:
+          parseFloat(user.accountBalance) > 5000000
+            ? "Business Loan"
+            : "Personal Loan",
+        amount: `₦${parseFloat(user.accountBalance).toLocaleString()}`,
         date: new Date(user.createdAt).toLocaleDateString(),
       }));
   };

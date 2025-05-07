@@ -1,19 +1,29 @@
 import React from "react";
-import userData from "@/data/userdata.json";
+import { useDashboard } from "@/hooks/useDashboard";
 import { Transaction } from "./types";
+// import Loading from "@/components/loading";
+// import Error from "@/components/error";
 
 const TransactionsTable: React.FC = () => {
+  const { data: userData, isLoading, error } = useDashboard();
+
+  if (isLoading) return <>Loading...</>;
+  if (error) return <>Error loading transactions</>;
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error message="" />;
+  if (!userData) return null;
+
   const generateRecentTransactions = (): Transaction[] => {
     return userData
-      .filter((user) => user.accountBalance > 0)
+      .filter((user) => parseFloat(user.accountBalance) > 0)
       .slice(0, 5)
       .map((user) => ({
         user: user.userName,
         type:
-          user.accountBalance > 5000000
+          parseFloat(user.accountBalance) > 5000000
             ? "Loan Disbursement"
             : "Loan Repayment",
-        amount: `₦${user.accountBalance.toLocaleString()}`,
+        amount: `₦${parseFloat(user.accountBalance).toLocaleString()}`,
         date: new Date(user.createdAt).toLocaleDateString(),
         status:
           user.status === "active"

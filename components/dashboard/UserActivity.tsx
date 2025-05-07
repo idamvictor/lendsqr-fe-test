@@ -8,11 +8,21 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import userData from "@/data/userdata.json";
+import { useDashboard } from "@/hooks/useDashboard";
 import { ChartData } from "./types";
 import { formatYAxis, CustomTooltip } from "./utils";
+// import Loading from "@/components/loading";
+// import Error from "@/components/error";
 
 const UserActivity: React.FC = () => {
+  const { data: userData, isLoading, error } = useDashboard();
+
+  if (isLoading) return <>Loading...</>;
+  if (error) return <>Error loading activity data</>;
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error message="" />;
+  if (!userData) return null;
+
   const calculateMonthlyActivity = () => {
     const monthlyData: { [key: string]: number } = {};
 

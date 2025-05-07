@@ -1,20 +1,30 @@
 import React from "react";
 import { SummaryCard } from "./types";
-import userData from "@/data/userdata.json";
+import { useDashboard } from "@/hooks/useDashboard";
 import { Users, FileText, DollarSign, Database } from "react-feather";
+// import Loading from "@/components/loading";
+// import Error from "@/components/error";
 
 const SummaryCards: React.FC = () => {
+  const { data: userData, isLoading, error } = useDashboard();
+
+  if (isLoading) return <>Loading...</>;
+  if (error) return <>Error loading dashboard data</>;
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error message="" />;
+  if (!userData) return null;
+
   // Calculate metrics from user data
   const totalUsers = userData.length;
   const activeUsers = userData.filter(
     (user) => user.status === "active"
   ).length;
   const totalBalance = userData.reduce(
-    (sum, user) => sum + (user.accountBalance || 0),
+    (sum, user) => sum + parseFloat(user.accountBalance),
     0
   );
   const usersWithLoans = userData.filter(
-    (user) => user.accountBalance > 0
+    (user) => parseFloat(user.accountBalance) > 0
   ).length;
 
   const summaryData: SummaryCard[] = [

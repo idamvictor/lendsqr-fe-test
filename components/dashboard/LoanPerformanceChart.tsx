@@ -8,14 +8,22 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import userData from "@/data/userdata.json";
+import { useDashboard } from "@/hooks/useDashboard";
+// import Loading from "@/components/loading";
+// import Error from "@/components/error";
 
 const LoanPerformanceChart: React.FC = () => {
+  const { data: userData, isLoading, error } = useDashboard();
+
+  if (isLoading) return <>Loading...</>;
+  if (error) return <>Error loading loan performance data</>;
+  if (!userData) return null;
+
   const calculateLoanPerformance = () => {
     const monthlyData: { [key: string]: { total: number; count: number } } = {};
 
     userData
-      .filter((user) => user.accountBalance > 0)
+      .filter((user) => parseFloat(user.accountBalance) > 0)
       .forEach((user) => {
         const date = new Date(user.createdAt);
         const monthYear = date.toLocaleString("default", {
@@ -26,7 +34,7 @@ const LoanPerformanceChart: React.FC = () => {
         if (!monthlyData[monthYear]) {
           monthlyData[monthYear] = { total: 0, count: 0 };
         }
-        monthlyData[monthYear].total += user.accountBalance;
+        monthlyData[monthYear].total += parseFloat(user.accountBalance);
         monthlyData[monthYear].count += 1;
       });
 
