@@ -96,7 +96,12 @@ const LoanPerformanceChart: React.FC = () => {
               formatter={(value: number) => [`₦${value}M`, "Amount"]}
               labelStyle={{ color: "#545F7D" }}
             />
-            <Bar dataKey="totalAmount" fill="#39CDCC" radius={[4, 4, 0, 0]} />
+            <Bar
+              dataKey="totalAmount"
+              fill="#39CDCC"
+              radius={[4, 4, 0, 0]}
+              barSize={30}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>
