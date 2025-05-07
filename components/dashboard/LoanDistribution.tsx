@@ -1,54 +1,81 @@
 import React from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from "recharts";
+import userData from "@/data/userdata.json";
 import { ChartData } from "./types";
 import { CustomPieTooltip, COLORS } from "./utils";
 
 const LoanDistribution: React.FC = () => {
-  const data: ChartData[] = [
-    { name: "Personal Loans", value: 45, percentage: 45 },
-    { name: "Business Loans", value: 35, percentage: 35 },
-    { name: "Education Loans", value: 20, percentage: 20 },
-  ];
+  // Calculate loan distribution based on account balance ranges
+  const calculateLoanDistribution = () => {
+    const smallLoans = userData.filter(
+      (user) => user.accountBalance > 0 && user.accountBalance <= 2000000
+    ).length;
+    const mediumLoans = userData.filter(
+      (user) => user.accountBalance > 2000000 && user.accountBalance <= 5000000
+    ).length;
+    const largeLoans = userData.filter(
+      (user) => user.accountBalance > 5000000
+    ).length;
+    const total = smallLoans + mediumLoans + largeLoans;
+
+    return [
+      {
+        name: "Small Loans (<2M)",
+        value: smallLoans,
+        percentage: Math.round((smallLoans / total) * 100),
+      },
+      {
+        name: "Medium Loans (2M-5M)",
+        value: mediumLoans,
+        percentage: Math.round((mediumLoans / total) * 100),
+      },
+      {
+        name: "Large Loans (>5M)",
+        value: largeLoans,
+        percentage: Math.round((largeLoans / total) * 100),
+      },
+    ];
+  };
+
+  const data: ChartData[] = calculateLoanDistribution();
 
   return (
-    <div className="chart-container">
-      <h3>Loan Distribution</h3>
-      <div className="chart-content">
-        <div className="pie-chart-wrapper">
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={80}
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomPieTooltip />} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="pie-chart-legend">
-          {data.map((entry, index) => (
-            <div key={index} className="legend-item">
-              <span
-                className="color-box"
-                style={{ backgroundColor: COLORS[index] }}
-              ></span>
-              <span className="label">{entry.name}</span>
-              <span className="percentage">{entry.percentage}%</span>
-            </div>
-          ))}
-        </div>
+    <div className="loan-distribution">
+      <h2>Loan Distribution</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomPieTooltip />} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="legend">
+        {data.map((entry, index) => (
+          <div key={index} className="legend-item">
+            <div
+              className="color-box"
+              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+            />
+            <span>{entry.name}</span>
+            <span className="percentage">{entry.percentage}%</span>
+          </div>
+        ))}
       </div>
     </div>
   );

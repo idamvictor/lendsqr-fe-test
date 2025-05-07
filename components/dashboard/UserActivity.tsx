@@ -8,37 +8,55 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import userData from "@/data/userdata.json";
 import { ChartData } from "./types";
 import { formatYAxis, CustomTooltip } from "./utils";
 
 const UserActivity: React.FC = () => {
-  const data: ChartData[] = [
-    { name: "Jan", users: 1200 },
-    { name: "Feb", users: 1800 },
-    { name: "Mar", users: 2200 },
-    { name: "Apr", users: 2800 },
-    { name: "May", users: 3500 },
-    { name: "Jun", users: 4200 },
-  ];
+  const calculateMonthlyActivity = () => {
+    const monthlyData: { [key: string]: number } = {};
+
+    userData.forEach((user) => {
+      const date = new Date(user.createdAt);
+      const monthYear = date.toLocaleString("default", {
+        month: "short",
+        year: "2-digit",
+      });
+      monthlyData[monthYear] = (monthlyData[monthYear] || 0) + 1;
+    });
+
+    // Convert to array and sort by date
+    return Object.entries(monthlyData)
+      .map(([name, users]) => ({ name, users }))
+      .sort((a, b) => {
+        const dateA = new Date(a.name);
+        const dateB = new Date(b.name);
+        return dateA.getTime() - dateB.getTime();
+      })
+      .slice(-6); // Get last 6 months
+  };
+
+  const data: ChartData[] = calculateMonthlyActivity();
 
   return (
-    <div className="chart-container">
-      <h3>User Activity</h3>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis tickFormatter={formatYAxis} />
-          <Tooltip content={<CustomTooltip />} />
-          <Line
-            type="monotone"
-            dataKey="users"
-            stroke="#39CDCC"
-            strokeWidth={2}
-            dot={{ fill: "#39CDCC" }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+    <div className="user-activity">
+      <h2>User Activity</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis tickFormatter={formatYAxis} />
+            <Tooltip content={<CustomTooltip />} />
+            <Line
+              type="monotone"
+              dataKey="users"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

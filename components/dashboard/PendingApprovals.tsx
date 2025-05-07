@@ -1,43 +1,25 @@
 import React from "react";
+import userData from "@/data/userdata.json";
 import { PendingApproval } from "./types";
 
 const PendingApprovals: React.FC = () => {
-  const pendingApprovals: PendingApproval[] = [
-    {
-      user: "John Smith",
-      type: "Personal Loan",
-      amount: "₦250,000",
-      date: "2025-05-01",
-    },
-    {
-      user: "Sarah Johnson",
-      type: "Business Loan",
-      amount: "₦1,200,000",
-      date: "2025-05-02",
-    },
-    {
-      user: "Michael Brown",
-      type: "Personal Loan",
-      amount: "₦350,000",
-      date: "2025-05-03",
-    },
-    {
-      user: "Emma Wilson",
-      type: "Education Loan",
-      amount: "₦500,000",
-      date: "2025-05-04",
-    },
-    {
-      user: "David Lee",
-      type: "Business Loan",
-      amount: "₦2,500,000",
-      date: "2025-05-04",
-    },
-  ];
+  const getPendingApprovals = (): PendingApproval[] => {
+    return userData
+      .filter((user) => user.status === "pending")
+      .slice(0, 5)
+      .map((user) => ({
+        user: user.userName,
+        type: user.accountBalance > 5000000 ? "Business Loan" : "Personal Loan",
+        amount: `₦${user.accountBalance.toLocaleString()}`,
+        date: new Date(user.createdAt).toLocaleDateString(),
+      }));
+  };
+
+  const pendingApprovals = getPendingApprovals();
 
   return (
     <div className="pending-approvals">
-      <h3>Pending Approvals</h3>
+      <h2>Pending Approvals</h2>
       <div className="approvals-list">
         {pendingApprovals.map((approval, index) => (
           <div key={index} className="approval-item">
@@ -45,9 +27,13 @@ const PendingApprovals: React.FC = () => {
               <h4>{approval.user}</h4>
               <span className="loan-type">{approval.type}</span>
             </div>
-            <div className="loan-details">
-              <span className="amount">{approval.amount}</span>
-              <span className="date">{approval.date}</span>
+            <div className="loan-info">
+              <p className="amount">{approval.amount}</p>
+              <p className="date">{approval.date}</p>
+            </div>
+            <div className="actions">
+              <button className="approve">Approve</button>
+              <button className="reject">Reject</button>
             </div>
           </div>
         ))}

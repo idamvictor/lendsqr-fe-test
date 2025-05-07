@@ -93,3 +93,26 @@
     }
   }
 }
+
+.dashboard-page {
+  padding: 24px;
+
+  .dashboard-content {
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .activity-section {
+      margin-bottom: 24px;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 24px;
+    }
+  }
+}

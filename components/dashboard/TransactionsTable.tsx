@@ -1,44 +1,30 @@
 import React from "react";
+import userData from "@/data/userdata.json";
 import { Transaction } from "./types";
 
 const TransactionsTable: React.FC = () => {
-  const transactions: Transaction[] = [
-    {
-      user: "John Smith",
-      type: "Loan Repayment",
-      amount: "₦50,000",
-      date: "2025-05-01",
-      status: "Completed",
-    },
-    {
-      user: "Sarah Johnson",
-      type: "Loan Disbursement",
-      amount: "₦1,200,000",
-      date: "2025-05-02",
-      status: "Processing",
-    },
-    {
-      user: "Michael Brown",
-      type: "Loan Repayment",
-      amount: "₦75,000",
-      date: "2025-05-03",
-      status: "Completed",
-    },
-    {
-      user: "Emma Wilson",
-      type: "Loan Disbursement",
-      amount: "₦350,000",
-      date: "2025-05-03",
-      status: "Failed",
-    },
-    {
-      user: "David Lee",
-      type: "Loan Repayment",
-      amount: "₦25,000",
-      date: "2025-05-04",
-      status: "Completed",
-    },
-  ];
+  const generateRecentTransactions = (): Transaction[] => {
+    return userData
+      .filter((user) => user.accountBalance > 0)
+      .slice(0, 5)
+      .map((user) => ({
+        user: user.userName,
+        type:
+          user.accountBalance > 5000000
+            ? "Loan Disbursement"
+            : "Loan Repayment",
+        amount: `₦${user.accountBalance.toLocaleString()}`,
+        date: new Date(user.createdAt).toLocaleDateString(),
+        status:
+          user.status === "active"
+            ? "Completed"
+            : user.status === "pending"
+            ? "Processing"
+            : "Failed",
+      }));
+  };
+
+  const transactions = generateRecentTransactions();
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -55,8 +41,8 @@ const TransactionsTable: React.FC = () => {
 
   return (
     <div className="transactions-table">
-      <h3>Recent Transactions</h3>
-      <div className="table-wrapper">
+      <h2>Recent Transactions</h2>
+      <div className="table-container">
         <table>
           <thead>
             <tr>
