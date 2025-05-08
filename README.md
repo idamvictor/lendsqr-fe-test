@@ -7,6 +7,7 @@ A modern, responsive admin dashboard built with Next.js 14, TypeScript, and SCSS
 - ✨ **Live Demo**: [View Application](https://idam-victor-lendsqr-fe-test.vercel.app/)
 - 🎥 **Video Demo**: [Watch Demo](https://www.loom.com/share/ef006f36b60b484ebc9c896ec81be824)
 - 💻 **GitHub Repository**: [View Code](https://github.com/idamvictor/lendsqr-fe-test)
+- 📚 **Technical Documentation**: [View Documentation](https://www.notion.so/Lendsqr-Admin-Dashboard-Technical-Documentation-1e594adc9b928022b4bef483b8f38643?pvs=4)
 
 ## Features
 
